@@ -149,9 +149,9 @@ namespace AcinoxXML2.Bussiness
                 razonsNode.InnerText = Cliente.Razons;
                 clienteNode.AppendChild(razonsNode);
 
-                XmlNode codmonedaNode = doc.CreateElement("codcondp");
-                codmonedaNode.InnerText = Cliente.Codcondp;
-                clienteNode.AppendChild(codmonedaNode);
+                XmlNode codcondpNode = doc.CreateElement("codcondp");
+                codcondpNode.InnerText = Cliente.Codcondp;
+                clienteNode.AppendChild(codcondpNode);
 
                 XmlNode limitrgNode = doc.CreateElement("limitrg");
                 limitrgNode.InnerText = Cliente.Limitrg;
