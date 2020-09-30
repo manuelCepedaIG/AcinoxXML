@@ -112,7 +112,7 @@ namespace AcinoxXML2.Bussiness
 
             //Console.WriteLine(sociedadList.GetType().GetGenericArguments()[0]);
             //doc.Save(Console.Out);
-            doc.Save(@"../../XML/sociedades.xml");
+            doc.Save("sociedades.xml");
         }
 
         public void GenerateXMLClientes(List<Cliente> clienteList)
@@ -200,7 +200,7 @@ namespace AcinoxXML2.Bussiness
 
             //Console.WriteLine(sociedadList.GetType().GetGenericArguments()[0]);
             //doc.Save(Console.Out);
-            doc.Save(@"../../XML/clientes.xml");
+            doc.Save("clientes.xml");
         }
     }
 }
