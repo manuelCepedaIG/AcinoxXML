@@ -23,11 +23,16 @@ namespace AcinoxXML2.Bussiness
                     List<Cliente> clientesList = mapingClientes(rdr);
                     GenerateXMLClientes(clientesList);
                     break;
+                case "formasPago":
+                    List<FormaPago> formaPagoList = mapingFormaPago(rdr);
+                    GenerateXMLFormaPago(formaPagoList);
+                    break;
                 default:
                     break;
             }
         }
 
+        #region mapping
         public  List<Sociedad> mapingSociedades(MySqlDataReader rdr)
         {
             List<Sociedad> sociedadList = new List<Sociedad>();
@@ -46,7 +51,7 @@ namespace AcinoxXML2.Bussiness
 
         public List<Cliente> mapingClientes(MySqlDataReader rdr)
         {
-            List<Cliente> sociedadList = new List<Cliente>();
+            List<Cliente> clienteList = new List<Cliente>();
             while (rdr.Read())
             {
                 Cliente cliente = new Cliente();
@@ -65,13 +70,36 @@ namespace AcinoxXML2.Bussiness
                 cliente.Tipoentidad = rdr[12].ToString();
                 cliente.Sector = rdr[13].ToString();
                 cliente.Fchaltaerp = rdr[14].ToString();
-                sociedadList.Add(cliente);
+                clienteList.Add(cliente);
             }
             rdr.Close();
-            return sociedadList;
+            return clienteList;
         }
 
-        public  void GenerateXMLSociedades(List<Sociedad> sociedadList)
+        public List<FormaPago> mapingFormaPago(MySqlDataReader rdr)
+        {
+            List<FormaPago> formaPagoList = new List<FormaPago>();
+            while (rdr.Read())
+            {
+                FormaPago formaPago = new FormaPago();
+                formaPago.Cod = rdr[0].ToString();
+                formaPago.Desc = rdr[1].ToString();
+                formaPago.Gencart = rdr[2].ToString();
+                formaPago.Ind1 = rdr[3].ToString();
+                formaPago.Ind2 = rdr[4].ToString();
+                formaPago.Numdias = rdr[5].ToString();
+
+                formaPagoList.Add(formaPago);
+            }
+            rdr.Close();
+            return formaPagoList;
+        }
+
+        #endregion
+
+        #region GenerateXML
+
+        public void GenerateXMLSociedades(List<Sociedad> sociedadList)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -202,5 +230,60 @@ namespace AcinoxXML2.Bussiness
             //doc.Save(Console.Out);
             doc.Save("clientes.xml");
         }
+
+        public void GenerateXMLFormaPago(List<FormaPago> formaPagoList)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(docNode);
+
+            XmlNode viaspagoNode = doc.CreateElement("viaspago");
+            doc.AppendChild(viaspagoNode);
+
+            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
+            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
+            viaspagoNode.Attributes.Append(metadata);
+
+            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
+            metadata2.Value = @"..\xsd\viaspago.xsd";
+            viaspagoNode.Attributes.Append(metadata2);
+
+            foreach (FormaPago formaPago in formaPagoList)
+            {
+                XmlNode viaNode = doc.CreateElement("via");
+                viaspagoNode.AppendChild(viaNode);
+
+                XmlNode codNode = doc.CreateElement("cod");
+                codNode.InnerText = formaPago.Cod;
+                viaNode.AppendChild(codNode);
+
+                XmlNode descNode = doc.CreateElement("desc");
+                descNode.InnerText = formaPago.Desc;
+                viaNode.AppendChild(descNode);
+
+                XmlNode gencartNode = doc.CreateElement("gencart");
+                gencartNode.InnerText = formaPago.Gencart;
+                viaNode.AppendChild(gencartNode);
+
+                XmlNode ind1Node = doc.CreateElement("ind1");
+                ind1Node.InnerText = formaPago.Ind1;
+                viaNode.AppendChild(ind1Node);
+
+                XmlNode ind2Node = doc.CreateElement("ind2");
+                ind2Node.InnerText = formaPago.Ind2;
+                viaNode.AppendChild(ind2Node);
+
+                XmlNode numdiasNode = doc.CreateElement("numdias");
+                numdiasNode.InnerText = formaPago.Numdias;
+                viaNode.AppendChild(numdiasNode);
+            }
+
+            //Console.WriteLine(sociedadList.GetType().GetGenericArguments()[0]);
+            //doc.Save(Console.Out);
+            doc.Save("viaspago.xml");
+        }
+
+
+        #endregion
     }
 }
