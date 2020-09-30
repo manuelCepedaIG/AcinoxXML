@@ -94,6 +94,7 @@
     <Compile Include="Bussiness\SQLBussiness.cs" />
     <Compile Include="Bussiness\XMLBussiness.cs" />
     <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\FormaPago.cs" />
     <Compile Include="Models\Sociedad.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

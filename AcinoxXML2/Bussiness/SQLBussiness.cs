@@ -11,7 +11,7 @@ namespace AcinoxXML2.Bussiness
     {
         public MySqlConnection connect()
         {
-            string connStr = "server=localhost;user=root;database=acinox;port=3306;password=administrator";
+            string connStr = "server=localhost;user=BIABLE01;database=acinox;port=3306;password=acinox";
             MySqlConnection conn = new MySqlConnection(connStr);
             return conn;
         }
@@ -34,6 +34,9 @@ namespace AcinoxXML2.Bussiness
                         "INNER JOIN DEPARTAMENTOS AS T2 ON T1.DPTO_CORRESP=T2.ID_DPTO " +
                         "INNER JOIN VENDEDORES AS T3 ON T1.CLI_VENDEDOR=T3.CODIGO " +
                         "INNER JOIN CONTRATOS AS C ON C.ID_TERC = T1.Codigo AND C.ID_EMP IN ('01','02')";
+                    break;
+                case "formasPago":
+                    sql = "SELECT CFC.ID_CPTONIV4 AS cod, CFC.CGCPTOFE_DESCRIPCION AS 'desc', '1' AS gencart, ' ' AS ind1, ' ' AS ind2, '15' AS numdias FROM acinox.cpto_flujo_caja CFC;";
                     break;
                 default:
                     sql = "SELECT Codigo AS cod, Descripcion AS razons, NIT AS nif, 'COP' AS codmoneda FROM acinox.empresas WHERE CODIGO IN(01,02);";
