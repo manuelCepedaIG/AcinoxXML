@@ -35,8 +35,11 @@ namespace AcinoxXML2
                 MySqlDataReader rdr2 = sql.getQueryData("clientes", conn);
                 xml.generateEntity("clientes", rdr2);
 
-                MySqlDataReader rdr3 = sql.getQueryData("formasPago", conn);
-                xml.generateEntity("formasPago", rdr3);
+                //MySqlDataReader rdr3 = sql.getQueryData("formasPago", conn);
+                xml.generateEntity("formasPago", null);
+
+                MySqlDataReader rdr4 = sql.getQueryData("contactos", conn);
+                xml.generateEntity("contactos", rdr4);
             }
             catch (Exception ex)
             {
