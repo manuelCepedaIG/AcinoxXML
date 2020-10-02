@@ -37,5 +37,29 @@ namespace AcinoxXML2.Models
         public string Sector { get; set; }
 
         public string Fchaltaerp { get; set; }
+
+        public string Fchinitact { get; set; }
+
+        public string Ind1 { get; set; }
+
+        public string Ind2 { get; set; }
+
+        public string Ind3 { get; set; }
+
+        public string Ind4 { get; set; }
+
+        public string Ind5 { get; set; }
+
+        public string Ind6 { get; set; }
+
+        public string Ind7 { get; set; }
+
+        public string Ind8 { get; set; }
+
+        public string Ind9 { get; set; }
+
+        public string TieneAval { get; set; }
+
+        public string TipoAval { get; set; }
     }
 }

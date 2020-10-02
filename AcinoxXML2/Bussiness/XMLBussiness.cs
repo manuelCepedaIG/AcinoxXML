@@ -24,8 +24,12 @@ namespace AcinoxXML2.Bussiness
                     GenerateXMLClientes(clientesList);
                     break;
                 case "formasPago":
-                    List<FormaPago> formaPagoList = mapingFormaPago(rdr);
-                    GenerateXMLFormaPago(formaPagoList);
+                    List<FormaPago> formaPagoList = mapingFormasPagos();
+                    GenerateXMLFormasPagos(formaPagoList);
+                    break;
+                case "contactos":
+                    List<Contacto> contactoList = mapingContactos(rdr);
+                    GenerateXMLContactos(contactoList);
                     break;
                 default:
                     break;
@@ -76,23 +80,123 @@ namespace AcinoxXML2.Bussiness
             return clienteList;
         }
 
-        public List<FormaPago> mapingFormaPago(MySqlDataReader rdr)
+        public List<FormaPago> mapingFormasPagos()
         {
             List<FormaPago> formaPagoList = new List<FormaPago>();
+
+            #region formas pago
+
+            FormaPago formaPago = new FormaPago();
+            formaPago.Cod = "1";
+            formaPago.Desc = "Efectivo";
+            formaPago.Gencart = "0";
+            formaPago.Ind1 = "001";
+            formaPago.Ind2 = "EFECTIVO";
+            formaPago.Numdias = "0";
+            formaPagoList.Add(formaPago);
+
+            formaPago = new FormaPago();
+            formaPago.Cod = "2";
+            formaPago.Desc = "Cheques";
+            formaPago.Gencart = "0";
+            formaPago.Ind1 = "002";
+            formaPago.Ind2 = "CHEQUE AL DIA";
+            formaPago.Numdias = "0";
+            formaPagoList.Add(formaPago);
+
+            formaPago = new FormaPago();
+            formaPago.Cod = "5";
+            formaPago.Desc = "Consignacion";
+            formaPago.Gencart = "0";
+            formaPago.Ind1 = "003";
+            formaPago.Ind2 = "CONSIGNACION";
+            formaPago.Numdias = "0";
+            formaPagoList.Add(formaPago);
+
+            formaPago = new FormaPago();
+            formaPago.Cod = "1";
+            formaPago.Desc = "Efectivo";
+            formaPago.Gencart = "0";
+            formaPago.Ind1 = "004";
+            formaPago.Ind2 = "EFECTIVO - DOLAR";
+            formaPago.Numdias = "0";
+            formaPagoList.Add(formaPago);
+
+            formaPago = new FormaPago();
+            formaPago.Cod = "3";
+            formaPago.Desc = "Otros";
+            formaPago.Gencart = "0";
+            formaPago.Ind1 = "005";
+            formaPago.Ind2 = "TARJETA DB";
+            formaPago.Numdias = "0";
+            formaPagoList.Add(formaPago);
+
+            formaPago = new FormaPago();
+            formaPago.Cod = "2";
+            formaPago.Desc = "Cheques";
+            formaPago.Gencart = "0";
+            formaPago.Ind1 = "006";
+            formaPago.Ind2 = "CHEQUES POSFECHADOS";
+            formaPago.Numdias = "0";
+            formaPagoList.Add(formaPago);
+
+            formaPago = new FormaPago();
+            formaPago.Cod = "1";
+            formaPago.Desc = "Efectivo";
+            formaPago.Gencart = "0";
+            formaPago.Ind1 = "007";
+            formaPago.Ind2 = "TRASFERENCIA ELECTRONICA";
+            formaPago.Numdias = "0";
+            formaPagoList.Add(formaPago);
+
+            formaPago = new FormaPago();
+            formaPago.Cod = "3";
+            formaPago.Desc = "Otros";
+            formaPago.Gencart = "0";
+            formaPago.Ind1 = "998";
+            formaPago.Ind2 = "BONOS";
+            formaPago.Numdias = "0";
+            formaPagoList.Add(formaPago);
+
+            formaPago = new FormaPago();
+            formaPago.Cod = "3";
+            formaPago.Desc = "Otros";
+            formaPago.Gencart = "0";
+            formaPago.Ind1 = "999";
+            formaPago.Ind2 = "OTROS";
+            formaPago.Numdias = "0";
+            formaPagoList.Add(formaPago);
+
+            #endregion
+
+            return formaPagoList;
+
+        }
+
+        public List<Contacto> mapingContactos(MySqlDataReader rdr)
+        {
+            List<Contacto> contactoList = new List<Contacto>();
             while (rdr.Read())
             {
-                FormaPago formaPago = new FormaPago();
-                formaPago.Cod = rdr[0].ToString();
-                formaPago.Desc = rdr[1].ToString();
-                formaPago.Gencart = rdr[2].ToString();
-                formaPago.Ind1 = rdr[3].ToString();
-                formaPago.Ind2 = rdr[4].ToString();
-                formaPago.Numdias = rdr[5].ToString();
+                Contacto contacto = new Contacto();
+                contacto.Codcliente = rdr[0].ToString();
+                contacto.Codcontacto = rdr[1].ToString();
+                contacto.Nombre = rdr[2].ToString();
+                contacto.Nif = rdr[3].ToString();
+                contacto.Tcontacto = rdr[4].ToString();
+                contacto.Coddireccion = rdr[5].ToString();
+                contacto.Tlfmovil = rdr[6].ToString();
+                contacto.Tlffijo = rdr[7].ToString();
+                contacto.Fax = rdr[8].ToString();
+                contacto.Email = rdr[9].ToString();
+                contacto.Ind1 = rdr[10].ToString();
+                contacto.Ind2 = rdr[11].ToString();
+                contacto.Ind3 = rdr[12].ToString();
 
-                formaPagoList.Add(formaPago);
+                contactoList.Add(contacto);
             }
             rdr.Close();
-            return formaPagoList;
+            return contactoList;
         }
 
         #endregion
@@ -138,9 +242,9 @@ namespace AcinoxXML2.Bussiness
                 socNode.AppendChild(codmonedaNode);
             }
 
-            //Console.WriteLine(sociedadList.GetType().GetGenericArguments()[0]);
-            //doc.Save(Console.Out);
-            doc.Save("sociedades.xml");
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            XmlWriter writer = XmlWriter.Create(@"sociedades.xml", settings);
+            doc.Save(writer);
         }
 
         public void GenerateXMLClientes(List<Cliente> clienteList)
@@ -155,6 +259,7 @@ namespace AcinoxXML2.Bussiness
             XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
             metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
             clientesNode.Attributes.Append(metadata);
+
 
             XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
             metadata2.Value = @"..\xsd\clientes.xsd";
@@ -224,14 +329,62 @@ namespace AcinoxXML2.Bussiness
                 XmlNode fchaltaerpNode = doc.CreateElement("fchaltaerp");
                 fchaltaerpNode.InnerText = Cliente.Fchaltaerp;
                 clienteNode.AppendChild(fchaltaerpNode);
+
+                XmlNode fchinitactNode = doc.CreateElement("fchinitact");
+                fchinitactNode.InnerText = Cliente.Fchinitact;
+                clienteNode.AppendChild(fchinitactNode);
+
+                XmlNode ind1Node = doc.CreateElement("ind1");
+                ind1Node.InnerText = Cliente.Ind1;
+                clienteNode.AppendChild(ind1Node);
+
+                XmlNode ind2Node = doc.CreateElement("ind2");
+                ind2Node.InnerText = Cliente.Ind2;
+                clienteNode.AppendChild(ind2Node);
+
+                XmlNode ind3Node = doc.CreateElement("ind3");
+                ind3Node.InnerText = Cliente.Ind3;
+                clienteNode.AppendChild(ind3Node);
+
+                XmlNode ind4Node = doc.CreateElement("ind4");
+                ind4Node.InnerText = Cliente.Ind4;
+                clienteNode.AppendChild(ind4Node);
+
+                XmlNode ind5Node = doc.CreateElement("ind5");
+                ind5Node.InnerText = Cliente.Ind5;
+                clienteNode.AppendChild(ind5Node);
+
+                XmlNode ind6Node = doc.CreateElement("ind6");
+                ind6Node.InnerText = Cliente.Ind6;
+                clienteNode.AppendChild(ind6Node);
+
+                XmlNode ind7Node = doc.CreateElement("ind7");
+                ind7Node.InnerText = Cliente.Ind7;
+                clienteNode.AppendChild(ind7Node);
+
+                XmlNode ind8Node = doc.CreateElement("ind8");
+                ind8Node.InnerText = Cliente.Ind8;
+                clienteNode.AppendChild(ind8Node);
+
+                XmlNode ind9Node = doc.CreateElement("ind9");
+                ind9Node.InnerText = Cliente.Ind9;
+                clienteNode.AppendChild(ind9Node);
+
+                XmlNode tieneavalNode = doc.CreateElement("tieneaval");
+                tieneavalNode.InnerText = Cliente.TieneAval;
+                clienteNode.AppendChild(tieneavalNode);
+
+                XmlNode tipoavalNode = doc.CreateElement("tipoaval");
+                tipoavalNode.InnerText = Cliente.TipoAval;
+                clienteNode.AppendChild(tipoavalNode);
             }
 
-            //Console.WriteLine(sociedadList.GetType().GetGenericArguments()[0]);
-            //doc.Save(Console.Out);
-            doc.Save("clientes.xml");
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            XmlWriter writer = XmlWriter.Create(@"clientes.xml", settings);
+            doc.Save(writer);
         }
 
-        public void GenerateXMLFormaPago(List<FormaPago> formaPagoList)
+        public void GenerateXMLFormasPagos(List<FormaPago> formaPagoList)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -278,9 +431,89 @@ namespace AcinoxXML2.Bussiness
                 viaNode.AppendChild(numdiasNode);
             }
 
-            //Console.WriteLine(sociedadList.GetType().GetGenericArguments()[0]);
-            //doc.Save(Console.Out);
-            doc.Save("viaspago.xml");
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            XmlWriter writer = XmlWriter.Create(@"viaspago.xml", settings);
+            doc.Save(writer);
+        }
+
+        public void GenerateXMLContactos(List<Contacto> contactoList)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(docNode);
+
+            XmlNode contactosNode = doc.CreateElement("contactos");
+            doc.AppendChild(contactosNode);
+
+            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
+            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
+            contactosNode.Attributes.Append(metadata);
+
+            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
+            metadata2.Value = @"..\xsd\contactos.xsd";
+            contactosNode.Attributes.Append(metadata2);
+
+            foreach (Contacto contacto in contactoList)
+            {
+                XmlNode contactoNode = doc.CreateElement("contacto");
+                contactosNode.AppendChild(contactoNode);
+
+                XmlNode codclienteNode = doc.CreateElement("codcliente");
+                codclienteNode.InnerText = contacto.Codcliente;
+                contactoNode.AppendChild(codclienteNode);
+
+                XmlNode codcontactoNode = doc.CreateElement("codcontacto");
+                codcontactoNode.InnerText = contacto.Codcontacto;
+                contactoNode.AppendChild(codcontactoNode);
+
+                XmlNode nombreNode = doc.CreateElement("nombre");
+                nombreNode.InnerText = contacto.Nombre;
+                contactoNode.AppendChild(nombreNode);
+
+                XmlNode nifNode = doc.CreateElement("nif");
+                nifNode.InnerText = contacto.Nif;
+                contactoNode.AppendChild(nifNode);
+
+                XmlNode tcontactoNode = doc.CreateElement("tcontacto");
+                tcontactoNode.InnerText = contacto.Tcontacto;
+                contactoNode.AppendChild(tcontactoNode);
+
+                XmlNode coddireccionNode = doc.CreateElement("coddireccion");
+                coddireccionNode.InnerText = contacto.Coddireccion;
+                contactoNode.AppendChild(coddireccionNode);
+
+                XmlNode tlfmovilNode = doc.CreateElement("tlfmovil");
+                tlfmovilNode.InnerText = contacto.Tlfmovil;
+                contactoNode.AppendChild(tlfmovilNode);
+
+                XmlNode tlffijoNode = doc.CreateElement("tlffijo");
+                tlffijoNode.InnerText = contacto.Tlffijo;
+                contactoNode.AppendChild(tlffijoNode);
+
+                XmlNode faxNode = doc.CreateElement("fax");
+                faxNode.InnerText = contacto.Fax;
+                contactoNode.AppendChild(faxNode);
+
+                XmlNode emailNode = doc.CreateElement("email");
+                emailNode.InnerText = contacto.Email;
+                contactoNode.AppendChild(emailNode);
+
+                XmlNode ind1Node = doc.CreateElement("ind1");
+                ind1Node.InnerText = contacto.Ind1;
+                contactoNode.AppendChild(ind1Node);
+
+                XmlNode ind2Node = doc.CreateElement("ind2");
+                ind2Node.InnerText = contacto.Ind2;
+                contactoNode.AppendChild(ind2Node);
+
+                XmlNode ind3Node = doc.CreateElement("ind3");
+                ind3Node.InnerText = contacto.Ind3;
+                contactoNode.AppendChild(ind3Node);
+            }
+
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            XmlWriter writer = XmlWriter.Create(@"contactos.xml", settings);
+            doc.Save(writer);
         }
 
 
