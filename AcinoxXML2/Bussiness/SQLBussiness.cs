@@ -7,6 +7,19 @@ using System.Threading.Tasks;
 
 namespace AcinoxXML2.Bussiness
 {
+    //##***********************************************************************************************###
+    //
+    //
+    // Intergrupo 2020
+    // Proyecto ACINOX
+    // Descripción: Conexión y consulta a base de datos
+    //
+    // Creado: Manuel Cepeda
+    // Fecha de creación: 5-oct-2020
+    // 
+    //
+    //##***********************************************************************************************###
+
     public class SQLBussiness
     {
         public MySqlConnection connect()

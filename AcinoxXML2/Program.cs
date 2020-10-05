@@ -12,8 +12,28 @@ using AcinoxXML2.Bussiness;
 
 namespace AcinoxXML2
 {
+    //##***********************************************************************************************###
+    //
+    //
+    // Intergrupo 2020
+    // Proyecto ACINOX
+    // Descripción: Proyecto de consola .NET para consulta y mapeado de consulta a mysql de clientes
+    // y posterior generación a archivo XML
+    // 
+    // Versionamiento para tener en cuenta: .NET 4.7.2
+    // Motor de Base de datos MySQL: 8.0
+    // Driver para conexión MySQL: MySql.Data v8.0.21.0 - Runtime Version: v4.0.30319
+    //
+    // Creado: Manuel Cepeda
+    // Fecha de creación: 5-oct-2020
+    // 
+    //
+    //##***********************************************************************************************###
+
+
     class Program
     {
+
         public static void Main(string[] args)
         {
             SQLBussiness sql = new SQLBussiness();
@@ -26,7 +46,7 @@ namespace AcinoxXML2
             XMLBussiness xml = new XMLBussiness();
             try
             {
-                Console.WriteLine("Connecting to MySQL...");
+                Console.WriteLine("Connecting to MySQL and generating XML files...");
                 conn.Open();
 
                 MySqlDataReader rdr = sql.getQueryData("sociedades", conn);
@@ -46,7 +66,7 @@ namespace AcinoxXML2
                 Console.WriteLine(ex.ToString());
             }
 
-            Console.WriteLine("Done.");
+            Console.WriteLine("Done. Press any key to close.");
             Console.ReadLine();
             conn.Close();
         }
