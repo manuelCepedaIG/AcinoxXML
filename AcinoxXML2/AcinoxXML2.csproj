@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="Bussiness\SQLBussiness.cs" />
     <Compile Include="Bussiness\XMLBussiness.cs" />
+    <Compile Include="Models\ClasificacionCriterios.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Contacto.cs" />
     <Compile Include="Models\FormaPago.cs" />

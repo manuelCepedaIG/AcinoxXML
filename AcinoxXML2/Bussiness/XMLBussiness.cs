@@ -45,9 +45,68 @@ namespace AcinoxXML2.Bussiness
                     List<Contacto> contactoList = mapingContactos(rdr);
                     GenerateXMLContactos(contactoList);
                     break;
+                case "clasifcriterios":
+                    List<ClasificacionCriterios> creteriosList = mapingCriterios(rdr);
+                    GenerateXMLCriteriosClasificacion(creteriosList);
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterios> creteriosList)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(docNode);
+
+            XmlNode criteriosNode = doc.CreateElement("clasifcriterios");
+            doc.AppendChild(criteriosNode);
+
+            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
+            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
+            criteriosNode.Attributes.Append(metadata);
+
+            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
+            metadata2.Value = @"..\xsd\clasifcriterios.xsd";
+            criteriosNode.Attributes.Append(metadata2);
+
+            foreach (ClasificacionCriterios criterio in creteriosList)
+            {
+                XmlNode socNode = doc.CreateElement("soc");
+                criteriosNode.AppendChild(socNode);
+
+                XmlNode idNode = doc.CreateElement("id");
+                idNode.InnerText = criterio.Id;
+                socNode.AppendChild(idNode);
+
+                XmlNode codNode = doc.CreateElement("cod");
+                codNode.InnerText = criterio.Cod;
+                socNode.AppendChild(codNode);
+
+                XmlNode descNode = doc.CreateElement("desc");
+                descNode.InnerText = criterio.Desc;
+                socNode.AppendChild(descNode);
+            }
+
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            XmlWriter writer = XmlWriter.Create(@"clasifcriterios.xml", settings);
+            doc.Save(writer);
+        }
+
+        private List<ClasificacionCriterios> mapingCriterios(MySqlDataReader rdr)
+        {
+            List<ClasificacionCriterios> clasificacionCriterio = new List<ClasificacionCriterios>();
+            while (rdr.Read())
+            {
+                ClasificacionCriterios criterios = new ClasificacionCriterios();
+                criterios.Id = rdr[0].ToString();
+                criterios.Cod = rdr[1].ToString();
+                criterios.Desc = rdr[2].ToString();
+                clasificacionCriterio.Add(criterios);
+            }
+            rdr.Close();
+            return clasificacionCriterio;
         }
 
         #region mapping
