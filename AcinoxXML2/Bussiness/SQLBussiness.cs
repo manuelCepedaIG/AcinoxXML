@@ -39,7 +39,7 @@ namespace AcinoxXML2.Bussiness
                             "Descripcion AS razons, " +
                             "NIT AS nif, " +
                             "'COP' AS codmoneda " +
-                            "FROM pruebaxesor.empresas" +
+                            "FROM empresas" +
                             " WHERE CODIGO IN(01,02);";
                     break;
                 case "clientes":
@@ -106,7 +106,7 @@ namespace AcinoxXML2.Bussiness
                         "ZONAS_SUBZONA.ID_ZONA1 as cod, " +
                         "ZONAS_SUBZONA.UNZONAS_DESCRIPCION as 'desc' " +
                         "from " +
-                        "pruebaxesor.ZONAS_SUBZONA " +
+                        "ZONAS_SUBZONA " +
                         "where (ZONAS_SUBZONA.ID_ZONA2 = ZONAS_SUBZONA.ID_ZONA); ";
                     break;
                 case "direcciones":
@@ -139,10 +139,10 @@ namespace AcinoxXML2.Bussiness
                         "'' as ind2, " +
                         "'' as ind3 " +
                         "from  " +
-                        "pruebaxesor.TERCEROS AS T1 " +
-                        "inner join pruebaxesor.CIUDADES AS T2 on T1.CIUDAD_CORRESP = T2.ID_CIUDAD " +
-                        "inner join pruebaxesor.DEPARTAMENTOS AS T3 on T1.DPTO_CORRESP = T3.ID_DPTO " +
-                        "inner join pruebaxesor.PAISES AS T4 on T1.PAIS_CORRESP = T4.ID_PAIS " +
+                        "TERCEROS AS T1 " +
+                        "inner join CIUDADES AS T2 on T1.CIUDAD_CORRESP = T2.ID_CIUDAD " +
+                        "inner join DEPARTAMENTOS AS T3 on T1.DPTO_CORRESP = T3.ID_DPTO " +
+                        "inner join PAISES AS T4 on T1.PAIS_CORRESP = T4.ID_PAIS " +
                         "where " +
                         "(T1.DIRECCION_1 != '' or  " +
                         "T1.DIRECCION_2 != '' or  " +
@@ -153,7 +153,7 @@ namespace AcinoxXML2.Bussiness
                             "Descripcion AS razons, " +
                             "NIT AS nif, " +
                             "'COP' AS codmoneda " +
-                            "FROM pruebaxesor.empresas WHERE CODIGO IN(01,02);";
+                            "FROM empresas WHERE CODIGO IN(01,02);";
                     break;
             }
 
