@@ -49,9 +49,92 @@ namespace AcinoxXML2.Bussiness
                     List<ClasificacionCriterios> creteriosList = mapingCriterios(rdr);
                     GenerateXMLCriteriosClasificacion(creteriosList);
                     break;
+                case "direcciones":
+                    List<Direcciones> direccionesList = mapingDirecciones(rdr);
+                    GenerateXMLDirecciones(direccionesList);
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void GenerateXMLDirecciones(List<Direcciones> direccionesList)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(docNode);
+
+            XmlNode direccionNode = doc.CreateElement("direcciones");
+            doc.AppendChild(direccionNode);
+
+            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
+            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
+            direccionNode.Attributes.Append(metadata);
+
+            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
+            metadata2.Value = @"..\xsd\direcciones.xsd";
+            direccionNode.Attributes.Append(metadata2);
+
+            foreach (Direcciones direccion in direccionesList)
+            {
+                XmlNode socNode = doc.CreateElement("direccion");
+                direccionNode.AppendChild(socNode);
+
+                XmlNode idNode = doc.CreateElement("codcliente");
+                idNode.InnerText = direccion.codcliente;
+                socNode.AppendChild(idNode);
+
+                XmlNode codNode = doc.CreateElement("coddireccion");
+                codNode.InnerText = direccion.coddireccion;
+                socNode.AppendChild(codNode);
+
+                XmlNode tipoDireccionNode = doc.CreateElement("tdireccion");
+                tipoDireccionNode.InnerText = direccion.tdireccion;
+                socNode.AppendChild(tipoDireccionNode);
+
+                XmlNode ciudadNode = doc.CreateElement("ciudad");
+                ciudadNode.InnerText = direccion.ciudad;
+                socNode.AppendChild(ciudadNode);
+
+                XmlNode providenciaNode = doc.CreateElement("prov");
+                providenciaNode.InnerText = direccion.prov;
+                socNode.AppendChild(providenciaNode);
+
+                XmlNode codigoPostalNode = doc.CreateElement("cp");
+                codigoPostalNode.InnerText = direccion.cp;
+                socNode.AppendChild(codigoPostalNode);
+
+                XmlNode paisNode = doc.CreateElement("pais");
+                paisNode.InnerText = direccion.pais;
+                socNode.AppendChild(paisNode);
+            }
+
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            XmlWriter writer = XmlWriter.Create(@"direcciones.xml", settings);
+            doc.Save(writer);
+        }
+
+        private List<Direcciones> mapingDirecciones(MySqlDataReader rdr)
+        {
+            List<Direcciones> direcciones = new List<Direcciones>();
+            while (rdr.Read())
+            {
+                Direcciones direccion = new Direcciones();
+                direccion.codcliente = rdr[0].ToString();
+                direccion.coddireccion = rdr[1].ToString();
+                direccion.tdireccion = rdr[2].ToString();
+                direccion.domicilio = rdr[3].ToString();
+                direccion.ciudad = rdr[4].ToString();
+                direccion.prov = rdr[5].ToString();
+                direccion.cp = rdr[6].ToString();
+                direccion.pais = rdr[7].ToString();
+                direccion.ind1 = rdr[8].ToString();
+                direccion.ind2 = rdr[9].ToString();
+                direccion.ind3 = rdr[10].ToString();
+                direcciones.Add(direccion);
+            }
+            rdr.Close();
+            return direcciones;
         }
 
         private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterios> creteriosList)

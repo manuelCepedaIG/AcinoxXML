@@ -109,6 +109,45 @@ namespace AcinoxXML2.Bussiness
                         "pruebaxesor.ZONAS_SUBZONA " +
                         "where (ZONAS_SUBZONA.ID_ZONA2 = ZONAS_SUBZONA.ID_ZONA); ";
                     break;
+                case "direcciones":
+                    sql = "select  " +
+                        "T1.CODIGO AS cod, " +
+                        "CASE " +
+                        "WHEN T1.DIRECCION_1 != '' THEN T1.DIRECCION_1 " +
+                        "WHEN T1.DIRECCION_2 != '' THEN T1.DIRECCION_1 " +
+                        "WHEN T1.DIRECCION_3 != '' THEN T1.DIRECCION_2 " +
+                        "END as coddireccion, " +
+                        "CASE " +
+                        "WHEN T1.DIRECCION_1 != '' THEN 2 " +
+                        "WHEN T1.DIRECCION_2 != '' THEN 1 " +
+                        "WHEN T1.DIRECCION_3 != '' THEN 0 " +
+                        "END as tdireccion, " +
+                        "CASE " +
+                        "WHEN T1.DIRECCION_1 != '' THEN T1.DIRECCION_1 " +
+                        "WHEN T1.DIRECCION_2 != '' THEN T1.DIRECCION_1 " +
+                        "WHEN T1.DIRECCION_3 != '' THEN T1.DIRECCION_2 " +
+                        "END as domicilio, /*verificar si esta bien que se seleccione el mismo que coddireccion*/ " +
+                        "T2.UNCIUDAD_DESCRIPCION as ciudad, " +
+                        "T3.UNDPTO_DESCRIPCION as prov, " +
+                        "CASE " +
+                        "WHEN T1.DIRECCION_1 != '' THEN T1.CLI_ZONA " +
+                        "WHEN T1.DIRECCION_2 != '' THEN T1.CLI_ZONA_1 " +
+                        "WHEN T1.DIRECCION_3 != '' THEN T1.CLI_ZONA_2 " +
+                        "END as cp /*Verificar*/, " +
+                        "T4.UNPAIS_DESCRIPCION as pais, " +
+                        "'' as ind1, " +
+                        "'' as ind2, " +
+                        "'' as ind3 " +
+                        "from  " +
+                        "pruebaxesor.TERCEROS AS T1 " +
+                        "inner join pruebaxesor.CIUDADES AS T2 on T1.CIUDAD_CORRESP = T2.ID_CIUDAD " +
+                        "inner join pruebaxesor.DEPARTAMENTOS AS T3 on T1.DPTO_CORRESP = T3.ID_DPTO " +
+                        "inner join pruebaxesor.PAISES AS T4 on T1.PAIS_CORRESP = T4.ID_PAIS " +
+                        "where " +
+                        "(T1.DIRECCION_1 != '' or  " +
+                        "T1.DIRECCION_2 != '' or  " +
+                        "T1.DIRECCION_3 != '' ) " ;
+                    break;
                 default:
                     sql = "SELECT Codigo AS cod, " +
                             "Descripcion AS razons, " +
