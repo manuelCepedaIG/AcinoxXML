@@ -96,6 +96,7 @@
     <Compile Include="Models\ClasificacionCriterios.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Contacto.cs" />
+    <Compile Include="Models\Direcciones.cs" />
     <Compile Include="Models\FormaPago.cs" />
     <Compile Include="Models\Sociedad.cs" />
     <Compile Include="Program.cs" />
