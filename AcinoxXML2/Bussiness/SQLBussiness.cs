@@ -24,7 +24,7 @@ namespace AcinoxXML2.Bussiness
     {
         public MySqlConnection connect()
         {
-            string connStr = "server=localhost;user=BIABLE01;database=acinox;port=3306;password=acinox";
+            string connStr = "server=localhost;user=root;database=pruebaxesor;port=3306;password=IG82020.";
             MySqlConnection conn = new MySqlConnection(connStr);
             return conn;
         }
@@ -39,7 +39,7 @@ namespace AcinoxXML2.Bussiness
                             "Descripcion AS razons, " +
                             "NIT AS nif, " +
                             "'COP' AS codmoneda " +
-                            "FROM acinox.empresas" +
+                            "FROM pruebaxesor.empresas" +
                             " WHERE CODIGO IN(01,02);";
                     break;
                 case "clientes":
@@ -93,12 +93,28 @@ namespace AcinoxXML2.Bussiness
                             "FROM TERCEROS AS Cl " +
                             "INNER JOIN CONTRATOS AS Con ON Con.ID_TERC = Cl.Codigo AND Con.ID_EMP IN('01','02'); ";
                     break;
+                case "clasifcriterios":
+                    sql = "select " +
+                        "'1001' as id, " +
+                        "ZONAS_SUBZONA.ID_ZONA1 as cod, " +
+                        "ZONAS_SUBZONA.UNZONAS_DESCRIPCION as 'desc' " +
+                        "from pruebaxesor.ZONAS_SUBZONA " +
+                        "where (ZONAS_SUBZONA.ID_ZONA1 = ZONAS_SUBZONA.ID_ZONA) " +
+                        "UNION ALL " +
+                        "select " +
+                        "'1002' as id, " +
+                        "ZONAS_SUBZONA.ID_ZONA1 as cod, " +
+                        "ZONAS_SUBZONA.UNZONAS_DESCRIPCION as 'desc' " +
+                        "from " +
+                        "pruebaxesor.ZONAS_SUBZONA " +
+                        "where (ZONAS_SUBZONA.ID_ZONA2 = ZONAS_SUBZONA.ID_ZONA); ";
+                    break;
                 default:
                     sql = "SELECT Codigo AS cod, " +
                             "Descripcion AS razons, " +
                             "NIT AS nif, " +
                             "'COP' AS codmoneda " +
-                            "FROM acinox.empresas WHERE CODIGO IN(01,02);";
+                            "FROM pruebaxesor.empresas WHERE CODIGO IN(01,02);";
                     break;
             }
 
