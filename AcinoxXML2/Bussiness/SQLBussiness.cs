@@ -24,7 +24,7 @@ namespace AcinoxXML2.Bussiness
     {
         public MySqlConnection connect()
         {
-            string connStr = "server=localhost;user=root;database=pruebaxesor;port=3306;password=IG82020.";
+            string connStr = "server=localhost;user=root;database=acinox;port=3306;password=administrator";
             MySqlConnection conn = new MySqlConnection(connStr);
             return conn;
         }
@@ -46,8 +46,8 @@ namespace AcinoxXML2.Bussiness
                     sql = "SELECT T1.CODIGO AS cod," +
                             "T1.NIT AS nif," +
                             "T1.DESCRIPCION AS razons," +
-                            "IF( T1.CLI_COND_PAGO IS NULL or T1.CLI_COND_PAGO = '', ' ',  T1.CLI_COND_PAGO)  AS codcondp,	" + 
-                            "T1.CLI_CUPO_CRE AS limitrg," +
+                            "IF( T1.CLI_COND_PAGO IS NULL or T1.CLI_COND_PAGO = '', ' ',  T1.CLI_COND_PAGO)  AS codcondp,	" +
+                            "REPLACE(T1.CLI_CUPO_CRE, ',','.') AS limitrg," +
                             "T2.UNDPTO_DESCRIPCION AS prov," +
                             "T1.CLI_ZONA_1 as criterio1_ZONA," +
                             "T1.CLI_ZONA_2 as criterio2_SUBZONA," +
@@ -98,15 +98,14 @@ namespace AcinoxXML2.Bussiness
                         "'1001' as id, " +
                         "ZONAS_SUBZONA.ID_ZONA1 as cod, " +
                         "ZONAS_SUBZONA.UNZONAS_DESCRIPCION as 'desc' " +
-                        "from pruebaxesor.ZONAS_SUBZONA " +
+                        "from ZONAS_SUBZONA " +
                         "where (ZONAS_SUBZONA.ID_ZONA1 = ZONAS_SUBZONA.ID_ZONA) " +
                         "UNION ALL " +
                         "select " +
                         "'1002' as id, " +
                         "ZONAS_SUBZONA.ID_ZONA1 as cod, " +
                         "ZONAS_SUBZONA.UNZONAS_DESCRIPCION as 'desc' " +
-                        "from " +
-                        "ZONAS_SUBZONA " +
+                        "from ZONAS_SUBZONA " +
                         "where (ZONAS_SUBZONA.ID_ZONA2 = ZONAS_SUBZONA.ID_ZONA); ";
                     break;
                 case "direcciones":
