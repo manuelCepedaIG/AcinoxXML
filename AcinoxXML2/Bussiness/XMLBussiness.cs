@@ -58,139 +58,7 @@ namespace AcinoxXML2.Bussiness
             }
         }
 
-        private void GenerateXMLDirecciones(List<Direcciones> direccionesList)
-        {
-            XmlDocument doc = new XmlDocument();
-            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            doc.AppendChild(docNode);
 
-            XmlNode direccionNode = doc.CreateElement("direcciones");
-            doc.AppendChild(direccionNode);
-
-            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
-            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
-            direccionNode.Attributes.Append(metadata);
-
-            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
-            metadata2.Value = @"..\xsd\direcciones.xsd";
-            direccionNode.Attributes.Append(metadata2);
-
-            foreach (Direcciones direccion in direccionesList)
-            {
-                XmlNode socNode = doc.CreateElement("direccion");
-                direccionNode.AppendChild(socNode);
-
-                XmlNode idNode = doc.CreateElement("codcliente");
-                idNode.InnerText = direccion.codcliente;
-                socNode.AppendChild(idNode);
-
-                XmlNode codNode = doc.CreateElement("coddireccion");
-                codNode.InnerText = direccion.coddireccion;
-                socNode.AppendChild(codNode);
-
-                XmlNode tipoDireccionNode = doc.CreateElement("tdireccion");
-                tipoDireccionNode.InnerText = direccion.tdireccion;
-                socNode.AppendChild(tipoDireccionNode);
-
-                XmlNode ciudadNode = doc.CreateElement("ciudad");
-                ciudadNode.InnerText = direccion.ciudad;
-                socNode.AppendChild(ciudadNode);
-
-                XmlNode providenciaNode = doc.CreateElement("prov");
-                providenciaNode.InnerText = direccion.prov;
-                socNode.AppendChild(providenciaNode);
-
-                XmlNode codigoPostalNode = doc.CreateElement("cp");
-                codigoPostalNode.InnerText = direccion.cp;
-                socNode.AppendChild(codigoPostalNode);
-
-                XmlNode paisNode = doc.CreateElement("pais");
-                paisNode.InnerText = direccion.pais;
-                socNode.AppendChild(paisNode);
-            }
-
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter writer = XmlWriter.Create(@"direcciones.xml", settings);
-            doc.Save(writer);
-        }
-
-        private List<Direcciones> mapingDirecciones(MySqlDataReader rdr)
-        {
-            List<Direcciones> direcciones = new List<Direcciones>();
-            while (rdr.Read())
-            {
-                Direcciones direccion = new Direcciones();
-                direccion.codcliente = rdr[0].ToString();
-                direccion.coddireccion = rdr[1].ToString();
-                direccion.tdireccion = rdr[2].ToString();
-                direccion.domicilio = rdr[3].ToString();
-                direccion.ciudad = rdr[4].ToString();
-                direccion.prov = rdr[5].ToString();
-                direccion.cp = rdr[6].ToString();
-                direccion.pais = rdr[7].ToString();
-                direccion.ind1 = rdr[8].ToString();
-                direccion.ind2 = rdr[9].ToString();
-                direccion.ind3 = rdr[10].ToString();
-                direcciones.Add(direccion);
-            }
-            rdr.Close();
-            return direcciones;
-        }
-
-        private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterios> creteriosList)
-        {
-            XmlDocument doc = new XmlDocument();
-            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            doc.AppendChild(docNode);
-
-            XmlNode criteriosNode = doc.CreateElement("clasifcriterios");
-            doc.AppendChild(criteriosNode);
-
-            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
-            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
-            criteriosNode.Attributes.Append(metadata);
-
-            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
-            metadata2.Value = @"..\xsd\clasifcriterios.xsd";
-            criteriosNode.Attributes.Append(metadata2);
-
-            foreach (ClasificacionCriterios criterio in creteriosList)
-            {
-                XmlNode socNode = doc.CreateElement("soc");
-                criteriosNode.AppendChild(socNode);
-
-                XmlNode idNode = doc.CreateElement("id");
-                idNode.InnerText = criterio.Id;
-                socNode.AppendChild(idNode);
-
-                XmlNode codNode = doc.CreateElement("cod");
-                codNode.InnerText = criterio.Cod;
-                socNode.AppendChild(codNode);
-
-                XmlNode descNode = doc.CreateElement("desc");
-                descNode.InnerText = criterio.Desc;
-                socNode.AppendChild(descNode);
-            }
-
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter writer = XmlWriter.Create(@"clasifcriterios.xml", settings);
-            doc.Save(writer);
-        }
-
-        private List<ClasificacionCriterios> mapingCriterios(MySqlDataReader rdr)
-        {
-            List<ClasificacionCriterios> clasificacionCriterio = new List<ClasificacionCriterios>();
-            while (rdr.Read())
-            {
-                ClasificacionCriterios criterios = new ClasificacionCriterios();
-                criterios.Id = rdr[0].ToString();
-                criterios.Cod = rdr[1].ToString();
-                criterios.Desc = rdr[2].ToString();
-                clasificacionCriterio.Add(criterios);
-            }
-            rdr.Close();
-            return clasificacionCriterio;
-        }
 
         #region mapping
         public  List<Sociedad> mapingSociedades(MySqlDataReader rdr)
@@ -355,6 +223,44 @@ namespace AcinoxXML2.Bussiness
             return contactoList;
         }
 
+        private List<Direcciones> mapingDirecciones(MySqlDataReader rdr)
+        {
+            List<Direcciones> direcciones = new List<Direcciones>();
+            while (rdr.Read())
+            {
+                Direcciones direccion = new Direcciones();
+                direccion.codcliente = rdr[0].ToString();
+                direccion.coddireccion = rdr[1].ToString();
+                direccion.tdireccion = rdr[2].ToString();
+                direccion.domicilio = rdr[3].ToString();
+                direccion.ciudad = rdr[4].ToString();
+                direccion.prov = rdr[5].ToString();
+                direccion.cp = rdr[6].ToString();
+                direccion.pais = rdr[7].ToString();
+                direccion.ind1 = rdr[8].ToString();
+                direccion.ind2 = rdr[9].ToString();
+                direccion.ind3 = rdr[10].ToString();
+                direcciones.Add(direccion);
+            }
+            rdr.Close();
+            return direcciones;
+        }
+
+        private List<ClasificacionCriterios> mapingCriterios(MySqlDataReader rdr)
+        {
+            List<ClasificacionCriterios> clasificacionCriterio = new List<ClasificacionCriterios>();
+            while (rdr.Read())
+            {
+                ClasificacionCriterios criterios = new ClasificacionCriterios();
+                criterios.Id = rdr[0].ToString();
+                criterios.Cod = rdr[1].ToString();
+                criterios.Desc = rdr[2].ToString();
+                clasificacionCriterio.Add(criterios);
+            }
+            rdr.Close();
+            return clasificacionCriterio;
+        }
+
         #endregion
 
         #region GenerateXML
@@ -450,13 +356,38 @@ namespace AcinoxXML2.Bussiness
                 provNode.InnerText = Cliente.Prov;
                 clienteNode.AppendChild(provNode);
 
-                XmlNode criterio1_ZONANode = doc.CreateElement("criterio1_ZONA");
-                criterio1_ZONANode.InnerText = Cliente.Criterio1_ZONA;
-                clienteNode.AppendChild(criterio1_ZONANode);
+                XmlNode dims = doc.CreateElement("dims");
+                clienteNode.AppendChild(dims);
 
-                XmlNode criterio2_SUBZONANode = doc.CreateElement("criterio2_SUBZONA");
-                criterio2_SUBZONANode.InnerText = Cliente.Criterio2_SUBZONA;
-                clienteNode.AppendChild(criterio2_SUBZONANode);
+                XmlNode dim = doc.CreateElement("dim");
+                dims.AppendChild(dim);
+
+                XmlNode dimOrden = doc.CreateElement("orden");
+                dimOrden.InnerText = "1";
+                dim.AppendChild(dimOrden);
+
+                XmlNode dimCodElem = doc.CreateElement("codelem");
+                dimCodElem.InnerText = Cliente.Criterio1_ZONA;
+                dim.AppendChild(dimCodElem);
+
+                XmlNode dimCodCrit = doc.CreateElement("codcrit");
+                dimCodCrit.InnerText = "1001";
+                dim.AppendChild(dimCodCrit);
+
+                XmlNode dim2 = doc.CreateElement("dim");
+                dims.AppendChild(dim2);
+
+                XmlNode dim2Orden = doc.CreateElement("orden");
+                dim2Orden.InnerText = "2";
+                dim2.AppendChild(dim2Orden);
+
+                XmlNode dim2CodElem = doc.CreateElement("codelem");
+                dim2CodElem.InnerText = Cliente.Criterio2_SUBZONA;
+                dim2.AppendChild(dim2CodElem);
+
+                XmlNode dim2CodCrit = doc.CreateElement("codcrit");
+                dim2CodCrit.InnerText = "1002";
+                dim2.AppendChild(dim2CodCrit);
 
                 XmlNode lrcompNode = doc.CreateElement("lrcomp");
                 lrcompNode.InnerText = Cliente.Lrcomp;
@@ -669,6 +600,102 @@ namespace AcinoxXML2.Bussiness
 
             XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
             XmlWriter writer = XmlWriter.Create(@"contactos.xml", settings);
+            doc.Save(writer);
+        }
+
+        private void GenerateXMLDirecciones(List<Direcciones> direccionesList)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(docNode);
+
+            XmlNode direccionNode = doc.CreateElement("direcciones");
+            doc.AppendChild(direccionNode);
+
+            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
+            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
+            direccionNode.Attributes.Append(metadata);
+
+            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
+            metadata2.Value = @"..\xsd\direcciones.xsd";
+            direccionNode.Attributes.Append(metadata2);
+
+            foreach (Direcciones direccion in direccionesList)
+            {
+                XmlNode socNode = doc.CreateElement("direccion");
+                direccionNode.AppendChild(socNode);
+
+                XmlNode idNode = doc.CreateElement("codcliente");
+                idNode.InnerText = direccion.codcliente;
+                socNode.AppendChild(idNode);
+
+                XmlNode codNode = doc.CreateElement("coddireccion");
+                codNode.InnerText = direccion.coddireccion;
+                socNode.AppendChild(codNode);
+
+                XmlNode tipoDireccionNode = doc.CreateElement("tdireccion");
+                tipoDireccionNode.InnerText = direccion.tdireccion;
+                socNode.AppendChild(tipoDireccionNode);
+
+                XmlNode ciudadNode = doc.CreateElement("ciudad");
+                ciudadNode.InnerText = direccion.ciudad;
+                socNode.AppendChild(ciudadNode);
+
+                XmlNode providenciaNode = doc.CreateElement("prov");
+                providenciaNode.InnerText = direccion.prov;
+                socNode.AppendChild(providenciaNode);
+
+                XmlNode codigoPostalNode = doc.CreateElement("cp");
+                codigoPostalNode.InnerText = direccion.cp;
+                socNode.AppendChild(codigoPostalNode);
+
+                XmlNode paisNode = doc.CreateElement("pais");
+                paisNode.InnerText = direccion.pais;
+                socNode.AppendChild(paisNode);
+            }
+
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            XmlWriter writer = XmlWriter.Create(@"direcciones.xml", settings);
+            doc.Save(writer);
+        }
+
+        private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterios> creteriosList)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(docNode);
+
+            XmlNode criteriosNode = doc.CreateElement("clasifcriterios");
+            doc.AppendChild(criteriosNode);
+
+            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
+            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
+            criteriosNode.Attributes.Append(metadata);
+
+            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
+            metadata2.Value = @"..\xsd\clasifcriterios.xsd";
+            criteriosNode.Attributes.Append(metadata2);
+
+            foreach (ClasificacionCriterios criterio in creteriosList)
+            {
+                XmlNode socNode = doc.CreateElement("soc");
+                criteriosNode.AppendChild(socNode);
+
+                XmlNode idNode = doc.CreateElement("id");
+                idNode.InnerText = criterio.Id;
+                socNode.AppendChild(idNode);
+
+                XmlNode codNode = doc.CreateElement("cod");
+                codNode.InnerText = criterio.Cod;
+                socNode.AppendChild(codNode);
+
+                XmlNode descNode = doc.CreateElement("desc");
+                descNode.InnerText = criterio.Desc;
+                socNode.AppendChild(descNode);
+            }
+
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            XmlWriter writer = XmlWriter.Create(@"clasifcriterios.xml", settings);
             doc.Save(writer);
         }
 

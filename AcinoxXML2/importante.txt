@@ -1,0 +1,8 @@
+Debe tener en cuenta la conexión a la base de datos, la configuración inicial es la siguiente:
+
+servidor: localhost
+base de datos: acinox
+usuario: root
+contraseña: administrator
+
+si se desea conectar a una instancia de bd diferente debe compilarse el proyecto .NET con la configuración deseada.
