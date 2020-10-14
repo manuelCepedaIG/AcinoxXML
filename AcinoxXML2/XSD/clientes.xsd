@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="clientes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" nillable="true" name="cliente">
+
+            <xs:complexType>
+              <xs:all>
+                
+                <xs:element name="cod" minOccurs="1" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="64"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+        
+                <xs:element name="nif" minOccurs="1" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="32"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+        
+                <xs:element name="razons" minOccurs="1" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                        
+                <xs:element name="codcondp"  minOccurs="0" nillable="true" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="64"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                
+                <xs:element name="limitrg" type="xs:decimal"  minOccurs="0" nillable="true" maxOccurs="1" />               
+                
+                <xs:element name="prov"  minOccurs="0" nillable="true" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                
+                <xs:element name="dims">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element minOccurs="0" nillable="true" maxOccurs="unbounded" name="dim">
+                        <xs:complexType>
+                          <xs:all>
+
+                            <xs:element name="orden" minOccurs="0" nillable="true">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:integer"/>
+                              </xs:simpleType>
+                            </xs:element>
+                            
+                            <xs:element name="codelem">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="64"/>
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:element>
+                            
+                            <xs:element name="codcrit">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:integer"/>
+                              </xs:simpleType>
+                            </xs:element>
+                            
+                          </xs:all>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                
+                <xs:element name="lrcomp" type="xs:unsignedInt" minOccurs="0" nillable="true"/>
+                
+                <xs:element name="viasp">
+                  <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" nillable="true" maxOccurs="unbounded" name="codvp">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:maxLength value="64"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+				
+				<xs:element name="clasifcontable"  minOccurs="0" nillable="true" maxOccurs="1" >
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="64"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                
+				<xs:element name="lsegcredito" type="xs:decimal"  minOccurs="0" nillable="true" maxOccurs="1" />
+
+				<xs:element name="fchcadsegcred" type="xs:date" minOccurs="0" nillable="true" maxOccurs="1"/>
+				
+				<xs:element name="tipoentidad"  minOccurs="0" nillable="true" maxOccurs="1" >
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="64"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+				
+				<xs:element name="sector"  minOccurs="0" nillable="true" maxOccurs="1" >
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+				
+				<xs:element name="fchaltaerp" type="xs:date" minOccurs="0" nillable="true" maxOccurs="1"/>
+				
+				<xs:element name="fchinitact" type="xs:date" minOccurs="0" nillable="true" maxOccurs="1"/>
+				
+				<xs:element name="ind1" minOccurs="0" nillable="true" maxOccurs="1">
+	                <xs:simpleType>
+	                  <xs:restriction base="xs:string">
+	                    <xs:maxLength value="255"/>
+	                  </xs:restriction>
+	                </xs:simpleType>
+              	</xs:element>
+			  
+			  <xs:element name="ind2" minOccurs="0" nillable="true" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+			  
+			  <xs:element name="ind3" minOccurs="0" nillable="true" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="ind4" minOccurs="0" nillable="true" maxOccurs="1">
+	                <xs:simpleType>
+	                  <xs:restriction base="xs:string">
+	                    <xs:maxLength value="255"/>
+	                  </xs:restriction>
+	                </xs:simpleType>
+              	</xs:element>
+			  
+			  <xs:element name="ind5" minOccurs="0" nillable="true" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+			  
+			  <xs:element name="ind6" minOccurs="0" nillable="true" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="ind7" minOccurs="0" nillable="true" maxOccurs="1">
+	                <xs:simpleType>
+	                  <xs:restriction base="xs:string">
+	                    <xs:maxLength value="255"/>
+	                  </xs:restriction>
+	                </xs:simpleType>
+              	</xs:element>
+			  
+			  <xs:element name="ind8" minOccurs="0" nillable="true" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+			  
+			  <xs:element name="ind9" minOccurs="0" nillable="true" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+				
+              </xs:all>
+            </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

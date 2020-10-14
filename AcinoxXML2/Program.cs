@@ -12,6 +12,8 @@ using AcinoxXML2.Bussiness;
 
 namespace AcinoxXML2
 {
+    #region comentarios de proyecto
+
     //##***********************************************************************************************###
     //
     //
@@ -24,11 +26,21 @@ namespace AcinoxXML2
     // Motor de Base de datos MySQL: 8.0
     // Driver para conexión MySQL: MySql.Data v8.0.21.0 - Runtime Version: v4.0.30319
     //
+    // Para efectos de validación de XSD del proyecto debe copiarse la carpeta XSD en la misma ubicación 
+    // en donde se esta usando el ejecutable .exe, los archivos XSD deben tener los nombres en minusculas
+    // y deben estar todos los ficheros necesarios para validación.
+    //
     // Creado: Manuel Cepeda
     // Fecha de creación: 5-oct-2020
-    // 
+    // Descripción: Fase inicial de desarrollo de proyecto
+    //
+    // Modificación: Manuel Cepeda
+    // Fecha de modificación: 14-oct-2020
+    // Añadidas validaciones XSD y mejoras de desarrollo para XML y carpetas
     //
     //##***********************************************************************************************###
+
+    #endregion
 
 
     class Program
@@ -39,6 +51,7 @@ namespace AcinoxXML2
             SQLBussiness sql = new SQLBussiness();
             MySqlConnection conn = sql.connect();
             generateFiles(sql, conn);
+            validateXMLFiles();
         }
 
         public static void generateFiles(SQLBussiness sql, MySqlConnection conn)
@@ -72,14 +85,25 @@ namespace AcinoxXML2
                 Console.WriteLine(ex.ToString());
             }
 
-            Console.WriteLine("Done. Press any key to close.");
-            Console.ReadLine();
+            Console.WriteLine("XML files generated");
+            //Console.ReadLine();
             conn.Close();
         }
 
-        
+        public static void validateXMLFiles()
+        {
+            XSDBussiness xsd = new XSDBussiness();
+            xsd.ValidationXSD("sociedades");
+            xsd.ValidationXSD("clientes");
+            xsd.ValidationXSD("viaspago");
+            xsd.ValidationXSD("contactos");
+            //xsd.ValidationXSD("direcciones");
+            xsd.ValidationXSD("clasifcriterios");
 
-        
+            Console.WriteLine("Done. Press any key to close.");
+            Console.ReadLine();
+        }
+
 
     }
 

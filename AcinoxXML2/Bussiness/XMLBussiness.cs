@@ -2,10 +2,12 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Schema;
 
 namespace AcinoxXML2.Bussiness
 {
@@ -59,7 +61,6 @@ namespace AcinoxXML2.Bussiness
         }
 
 
-
         #region mapping
         public  List<Sociedad> mapingSociedades(MySqlDataReader rdr)
         {
@@ -93,11 +94,34 @@ namespace AcinoxXML2.Bussiness
                 cliente.Criterio2_SUBZONA = rdr[7].ToString();
                 cliente.Lrcomp = rdr[8].ToString();
                 cliente.Viasp = rdr[9].ToString();
-                cliente.Lsegcredito = rdr[10].ToString();
-                cliente.Fchcadsegcred = rdr[11].ToString();
-                cliente.Tipoentidad = rdr[12].ToString();
-                cliente.Sector = rdr[13].ToString();
-                cliente.Fchaltaerp = rdr[14].ToString();
+                cliente.ClasifContable = rdr[10].ToString();
+                cliente.Lsegcredito = string.IsNullOrEmpty(rdr[11].ToString()) ? 0 : Convert.ToDecimal(rdr[11].ToString());
+                cliente.Fchcadsegcred = (rdr[12] == DBNull.Value || string.IsNullOrEmpty(rdr[12].ToString())
+                                                    ? new DateTime(1, 1, 1)
+                                                    : new DateTime(Convert.ToInt32(rdr[12].ToString().Substring(0, 4)),
+                                                                   Convert.ToInt32(rdr[12].ToString().Substring(4, 2)),
+                                                                   Convert.ToInt32(rdr[12].ToString().Substring(4, 2))));
+                cliente.Tipoentidad = rdr[13].ToString();
+                cliente.Sector = rdr[14].ToString();
+                cliente.Fchaltaerp = (rdr[15] == DBNull.Value || string.IsNullOrEmpty(rdr[15].ToString()) 
+                                                    ? new DateTime(1, 1, 1) 
+                                                    : new DateTime(Convert.ToInt32(rdr[15].ToString().Substring(0,4)), 
+                                                                   Convert.ToInt32(rdr[15].ToString().Substring(4,2)),
+                                                                   Convert.ToInt32(rdr[15].ToString().Substring(4,2))) );
+                cliente.Fchinitact = (rdr[16] == DBNull.Value || string.IsNullOrEmpty(rdr[16].ToString())
+                                                    ? new DateTime(1, 1, 1)
+                                                    : new DateTime(Convert.ToInt32(rdr[16].ToString().Substring(0, 4)),
+                                                                   Convert.ToInt32(rdr[16].ToString().Substring(4, 2)),
+                                                                   Convert.ToInt32(rdr[16].ToString().Substring(4, 2))));
+                cliente.Ind1 = rdr[17].ToString();
+                cliente.Ind2 = rdr[18].ToString();
+                cliente.Ind3 = rdr[19].ToString();
+                cliente.Ind4 = rdr[20].ToString();
+                cliente.Ind5 = rdr[21].ToString();
+                cliente.Ind6 = rdr[22].ToString();
+                cliente.Ind7 = rdr[23].ToString();
+                cliente.Ind8 = rdr[24].ToString();
+                cliente.Ind9 = rdr[25].ToString();
                 clienteList.Add(cliente);
             }
             rdr.Close();
@@ -265,23 +289,10 @@ namespace AcinoxXML2.Bussiness
 
         #region GenerateXML
 
-        public void GenerateXMLSociedades(List<Sociedad> sociedadList)
+        private void GenerateXMLSociedades(List<Sociedad> sociedadList)
         {
-            XmlDocument doc = new XmlDocument();
-            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            doc.AppendChild(docNode);
-
-            XmlNode sociedadesNode = doc.CreateElement("sociedades");
-            doc.AppendChild(sociedadesNode);
-
-            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
-            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
-            sociedadesNode.Attributes.Append(metadata);
-
-            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
-            metadata2.Value = @"..\xsd\sociedades.xsd";
-            sociedadesNode.Attributes.Append(metadata2);
-
+            XmlElement sociedadesNode;
+            XmlDocument doc = CreateXMLHeaders("sociedades", out sociedadesNode);
             foreach (Sociedad sociedad in sociedadList)
             {
                 XmlNode socNode = doc.CreateElement("soc");
@@ -303,30 +314,13 @@ namespace AcinoxXML2.Bussiness
                 codmonedaNode.InnerText = sociedad.Codmoneda;
                 socNode.AppendChild(codmonedaNode);
             }
-
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter writer = XmlWriter.Create(@"sociedades.xml", settings);
-            doc.Save(writer);
+            SavingXMLFile(doc, "sociedades");
         }
 
-        public void GenerateXMLClientes(List<Cliente> clienteList)
+        private void GenerateXMLClientes(List<Cliente> clienteList)
         {
-            XmlDocument doc = new XmlDocument();
-            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            doc.AppendChild(docNode);
-
-            XmlNode clientesNode = doc.CreateElement("clientes");
-            doc.AppendChild(clientesNode);
-
-            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
-            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
-            clientesNode.Attributes.Append(metadata);
-
-
-            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
-            metadata2.Value = @"..\xsd\clientes.xsd";
-            clientesNode.Attributes.Append(metadata2);
-
+            XmlElement clientesNode;
+            XmlDocument doc = CreateXMLHeaders("clientes", out clientesNode);
             foreach (Cliente Cliente in clienteList)
             {
                 XmlNode clienteNode = doc.CreateElement("cliente");
@@ -394,15 +388,18 @@ namespace AcinoxXML2.Bussiness
                 clienteNode.AppendChild(lrcompNode);
 
                 XmlNode viaspNode = doc.CreateElement("viasp");
-                viaspNode.InnerText = Cliente.Viasp;
                 clienteNode.AppendChild(viaspNode);
 
+                XmlNode codvp = doc.CreateElement("codvp");
+                codvp.InnerText = Cliente.Viasp;
+                viaspNode.AppendChild(codvp);
+
                 XmlNode lsegcreditoNode = doc.CreateElement("lsegcredito");
-                lsegcreditoNode.InnerText = Cliente.Lsegcredito;
+                lsegcreditoNode.InnerText = Cliente.Lsegcredito.ToString();
                 clienteNode.AppendChild(lsegcreditoNode);
 
                 XmlNode fchcadsegcredNode = doc.CreateElement("fchcadsegcred");
-                fchcadsegcredNode.InnerText = Cliente.Fchcadsegcred;
+                fchcadsegcredNode.InnerText = Cliente.Fchcadsegcred.ToString("yyyy-MM-dd");
                 clienteNode.AppendChild(fchcadsegcredNode);
 
                 XmlNode tipoentidadNode = doc.CreateElement("tipoentidad");
@@ -414,11 +411,11 @@ namespace AcinoxXML2.Bussiness
                 clienteNode.AppendChild(sectorNode);
 
                 XmlNode fchaltaerpNode = doc.CreateElement("fchaltaerp");
-                fchaltaerpNode.InnerText = Cliente.Fchaltaerp;
+                fchaltaerpNode.InnerText = Cliente.Fchaltaerp.ToString("yyyy-MM-dd");
                 clienteNode.AppendChild(fchaltaerpNode);
 
                 XmlNode fchinitactNode = doc.CreateElement("fchinitact");
-                fchinitactNode.InnerText = Cliente.Fchinitact;
+                fchinitactNode.InnerText = Cliente.Fchinitact.ToString("yyyy-MM-dd");
                 clienteNode.AppendChild(fchinitactNode);
 
                 XmlNode ind1Node = doc.CreateElement("ind1");
@@ -457,37 +454,21 @@ namespace AcinoxXML2.Bussiness
                 ind9Node.InnerText = Cliente.Ind9;
                 clienteNode.AppendChild(ind9Node);
 
-                XmlNode tieneavalNode = doc.CreateElement("tieneaval");
-                tieneavalNode.InnerText = Cliente.TieneAval;
-                clienteNode.AppendChild(tieneavalNode);
+                //XmlNode tieneavalNode = doc.CreateElement("tieneaval");
+                //tieneavalNode.InnerText = Cliente.TieneAval;
+                //clienteNode.AppendChild(tieneavalNode);
 
-                XmlNode tipoavalNode = doc.CreateElement("tipoaval");
-                tipoavalNode.InnerText = Cliente.TipoAval;
-                clienteNode.AppendChild(tipoavalNode);
+                //XmlNode tipoavalNode = doc.CreateElement("tipoaval");
+                //tipoavalNode.InnerText = Cliente.TipoAval;
+                //clienteNode.AppendChild(tipoavalNode);
             }
-
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter writer = XmlWriter.Create(@"clientes.xml", settings);
-            doc.Save(writer);
+            SavingXMLFile(doc, "clientes");
         }
 
-        public void GenerateXMLFormasPagos(List<FormaPago> formaPagoList)
+        private void GenerateXMLFormasPagos(List<FormaPago> formaPagoList)
         {
-            XmlDocument doc = new XmlDocument();
-            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            doc.AppendChild(docNode);
-
-            XmlNode viaspagoNode = doc.CreateElement("viaspago");
-            doc.AppendChild(viaspagoNode);
-
-            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
-            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
-            viaspagoNode.Attributes.Append(metadata);
-
-            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
-            metadata2.Value = @"..\xsd\viaspago.xsd";
-            viaspagoNode.Attributes.Append(metadata2);
-
+            XmlElement viaspagoNode;
+            XmlDocument doc = CreateXMLHeaders("viaspago", out viaspagoNode);
             foreach (FormaPago formaPago in formaPagoList)
             {
                 XmlNode viaNode = doc.CreateElement("via");
@@ -517,29 +498,13 @@ namespace AcinoxXML2.Bussiness
                 numdiasNode.InnerText = formaPago.Numdias;
                 viaNode.AppendChild(numdiasNode);
             }
-
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter writer = XmlWriter.Create(@"viaspago.xml", settings);
-            doc.Save(writer);
+            SavingXMLFile(doc, "viaspago");
         }
 
-        public void GenerateXMLContactos(List<Contacto> contactoList)
+        private void GenerateXMLContactos(List<Contacto> contactoList)
         {
-            XmlDocument doc = new XmlDocument();
-            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            doc.AppendChild(docNode);
-
-            XmlNode contactosNode = doc.CreateElement("contactos");
-            doc.AppendChild(contactosNode);
-
-            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
-            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
-            contactosNode.Attributes.Append(metadata);
-
-            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
-            metadata2.Value = @"..\xsd\contactos.xsd";
-            contactosNode.Attributes.Append(metadata2);
-
+            XmlElement contactosNode;
+            XmlDocument doc = CreateXMLHeaders("contactos", out contactosNode);
             foreach (Contacto contacto in contactoList)
             {
                 XmlNode contactoNode = doc.CreateElement("contacto");
@@ -597,29 +562,13 @@ namespace AcinoxXML2.Bussiness
                 ind3Node.InnerText = contacto.Ind3;
                 contactoNode.AppendChild(ind3Node);
             }
-
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter writer = XmlWriter.Create(@"contactos.xml", settings);
-            doc.Save(writer);
+            SavingXMLFile(doc, "contactos");
         }
 
         private void GenerateXMLDirecciones(List<Direcciones> direccionesList)
         {
-            XmlDocument doc = new XmlDocument();
-            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            doc.AppendChild(docNode);
-
-            XmlNode direccionNode = doc.CreateElement("direcciones");
-            doc.AppendChild(direccionNode);
-
-            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
-            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
-            direccionNode.Attributes.Append(metadata);
-
-            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
-            metadata2.Value = @"..\xsd\direcciones.xsd";
-            direccionNode.Attributes.Append(metadata2);
-
+            XmlElement direccionNode;
+            XmlDocument doc = CreateXMLHeaders("direcciones", out direccionNode);
             foreach (Direcciones direccion in direccionesList)
             {
                 XmlNode socNode = doc.CreateElement("direccion");
@@ -653,32 +602,16 @@ namespace AcinoxXML2.Bussiness
                 paisNode.InnerText = direccion.pais;
                 socNode.AppendChild(paisNode);
             }
-
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter writer = XmlWriter.Create(@"direcciones.xml", settings);
-            doc.Save(writer);
+            SavingXMLFile(doc, "direcciones");
         }
 
         private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterios> creteriosList)
         {
-            XmlDocument doc = new XmlDocument();
-            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
-            doc.AppendChild(docNode);
-
-            XmlNode criteriosNode = doc.CreateElement("clasifcriterios");
-            doc.AppendChild(criteriosNode);
-
-            XmlAttribute metadata = doc.CreateAttribute("xmlns:xsi");
-            metadata.Value = "http://www.w3.org/2001/XMLSchema-instance";
-            criteriosNode.Attributes.Append(metadata);
-
-            XmlAttribute metadata2 = doc.CreateAttribute("xsi:noNamespaceSchemaLocation");
-            metadata2.Value = @"..\xsd\clasifcriterios.xsd";
-            criteriosNode.Attributes.Append(metadata2);
-
+            XmlElement criteriosNode;
+            XmlDocument doc = CreateXMLHeaders("criterios", out criteriosNode);
             foreach (ClasificacionCriterios criterio in creteriosList)
             {
-                XmlNode socNode = doc.CreateElement("soc");
+                XmlNode socNode = doc.CreateElement("critelem");
                 criteriosNode.AppendChild(socNode);
 
                 XmlNode idNode = doc.CreateElement("id");
@@ -693,12 +626,40 @@ namespace AcinoxXML2.Bussiness
                 descNode.InnerText = criterio.Desc;
                 socNode.AppendChild(descNode);
             }
-
-            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter writer = XmlWriter.Create(@"clasifcriterios.xml", settings);
-            doc.Save(writer);
+            SavingXMLFile(doc, "clasifcriterios");
         }
 
+        private XmlDocument CreateXMLHeaders(string xmlFileName, out XmlElement Node)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(docNode);
+
+            Node = doc.CreateElement(xmlFileName);
+
+            string xsi = "http://www.w3.org/2001/XMLSchema-instance";
+            XmlSchema schema = new XmlSchema();
+            schema.Namespaces.Add("xsi", xsi);
+            doc.Schemas.Add(schema);
+
+            Node.SetAttribute("xmlns:xsi", xsi);
+
+            XmlAttribute metadata2 = doc.CreateAttribute("noNamespaceSchemaLocation", xsi);
+            metadata2.Value = xmlFileName + ".xsd";
+            Node.Attributes.Append(metadata2);
+
+            doc.AppendChild(Node);
+            return doc;
+        }
+
+        private void SavingXMLFile(XmlDocument xmlDoc, string xmlFileName)
+        {
+            string directory = Directory.GetCurrentDirectory();
+            Directory.CreateDirectory(directory + @"\XML");
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            XmlWriter writer = XmlWriter.Create(directory + @"\XML\"+ xmlFileName + ".xml", settings);
+            xmlDoc.Save(writer);
+        }
 
         #endregion
     }

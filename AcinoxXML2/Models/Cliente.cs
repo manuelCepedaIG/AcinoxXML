@@ -28,17 +28,19 @@ namespace AcinoxXML2.Models
 
         public string Viasp { get; set; }
 
-        public string Lsegcredito { get; set; }
+        public string ClasifContable { get; set; }
 
-        public string Fchcadsegcred { get; set; }
+        public decimal Lsegcredito { get; set; }
+
+        public DateTime Fchcadsegcred { get; set; }
 
         public string Tipoentidad { get; set; }
 
         public string Sector { get; set; }
 
-        public string Fchaltaerp { get; set; }
+        public DateTime Fchaltaerp { get; set; }
 
-        public string Fchinitact { get; set; }
+        public DateTime Fchinitact { get; set; }
 
         public string Ind1 { get; set; }
 
