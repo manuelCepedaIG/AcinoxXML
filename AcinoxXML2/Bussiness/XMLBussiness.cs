@@ -608,7 +608,7 @@ namespace AcinoxXML2.Bussiness
         private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterios> creteriosList)
         {
             XmlElement criteriosNode;
-            XmlDocument doc = CreateXMLHeaders("criterios", out criteriosNode);
+            XmlDocument doc = CreateXMLHeaders("clasifcriterios", out criteriosNode);
             foreach (ClasificacionCriterios criterio in creteriosList)
             {
                 XmlNode socNode = doc.CreateElement("critelem");

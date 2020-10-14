@@ -106,7 +106,22 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="XSD\clasifcriterios.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XSD\clientes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XSD\contactos.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XSD\direcciones.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="XSD\sociedades.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XSD\viaspago.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
