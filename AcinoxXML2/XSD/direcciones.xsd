@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="direcciones">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" nillable="true" name="direccion">
+
+            <xs:complexType>
+              <xs:all>
+	
+                <xs:element name="codcliente" minOccurs="1" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="64"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+        
+                <xs:element name="coddireccion" minOccurs="1" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="64"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                
+				        <xs:element name="tdireccion" type="xs:integer" minOccurs="1" maxOccurs="1" />
+                        
+                <xs:element name="domicilio"  minOccurs="0" nillable="true" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                
+                <xs:element name="ciudad"  minOccurs="0" nillable="true" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="64"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>               
+                
+                <xs:element name="prov"  minOccurs="0" nillable="true" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="64"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                
+                <xs:element name="cp" minOccurs="0" nillable="true" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="32"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+				
+				<xs:element name="pais" minOccurs="0" nillable="true" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="64"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+				
+				<xs:element name="ind1" minOccurs="0" nillable="true" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+				
+				<xs:element name="ind2" minOccurs="0" nillable="true" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+				
+				<xs:element name="ind3" minOccurs="0" nillable="true" maxOccurs="1">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                
+                
+              </xs:all>
+            </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="Bussiness\SQLBussiness.cs" />
     <Compile Include="Bussiness\XMLBussiness.cs" />
+    <Compile Include="Bussiness\XSDBussiness.cs" />
     <Compile Include="Models\ClasificacionCriterios.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Contacto.cs" />
@@ -105,9 +106,10 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="XSD\sociedades.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="XML\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
