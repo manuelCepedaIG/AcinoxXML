@@ -97,7 +97,7 @@ namespace AcinoxXML2
             xsd.ValidationXSD("clientes");
             xsd.ValidationXSD("viaspago");
             xsd.ValidationXSD("contactos");
-            //xsd.ValidationXSD("direcciones");
+            xsd.ValidationXSD("direcciones");
             xsd.ValidationXSD("clasifcriterios");
 
             Console.WriteLine("Done. Press any key to close.");
