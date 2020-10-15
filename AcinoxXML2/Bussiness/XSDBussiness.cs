@@ -33,21 +33,25 @@ namespace AcinoxXML2.Bussiness
             string xsdFile = directory + @"\XSD\" + fileName + ".xsd";
             string xmlFile = directory + @"\XML\" + fileName + ".xml";
 
-            var xdoc = XDocument.Load(xmlFile);
-            var xdoc2 = XDocument.Load(xsdFile);
-            var schemas = new XmlSchemaSet();
-            using (FileStream stream = File.OpenRead(xsdFile))
-            {
-                schemas.Add(XmlSchema.Read(stream, (s, e) =>
-                {
-                    var x = e.Message;
-                }));
-            }
-
             bool isvalid = true;
             StringBuilder sb = new StringBuilder();
+
             try
             {
+
+                var xdoc = XDocument.Load(xmlFile);
+                var xdoc2 = XDocument.Load(xsdFile);
+
+
+                var schemas = new XmlSchemaSet();
+                using (FileStream stream = File.OpenRead(xsdFile))
+                {
+                    schemas.Add(XmlSchema.Read(stream, (s, e) =>
+                    {
+                        var x = e.Message;
+                    }));
+                }
+
                 xdoc.Validate(schemas, (s, e) =>
                 {
                     isvalid = false;
@@ -72,10 +76,15 @@ namespace AcinoxXML2.Bussiness
                 isvalid = false;
                 sb.AppendLine(string.Format("** There was an error found related with system verification, please check error in the debug log"));
             }
+            catch(Exception e)
+            {
+                isvalid = false;
+                sb.AppendLine(string.Format("**Error found: {0}", e.Message));
+            }
 
             if (isvalid)
             {
-                Console.Write("-> no errors found. please any key to continue.\n");
+                Console.Write("-> no errors found.\n");
             }
             else
             {

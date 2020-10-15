@@ -147,7 +147,7 @@ namespace AcinoxXML2.Bussiness
                         "where " +
                         "(T1.DIRECCION_1 != '' or  " +
                         "T1.DIRECCION_2 != '' or  " +
-                        "T1.DIRECCION_3 != '' ) " ;
+                        "T1.DIRECCION_3 != '' ); ";
                     break;
                 default:
                     sql = "SELECT Codigo AS cod, " +
