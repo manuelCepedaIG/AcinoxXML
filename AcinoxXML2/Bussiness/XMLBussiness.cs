@@ -250,23 +250,32 @@ namespace AcinoxXML2.Bussiness
         private List<Direcciones> mapingDirecciones(MySqlDataReader rdr)
         {
             List<Direcciones> direcciones = new List<Direcciones>();
-            while (rdr.Read())
+            try
             {
-                Direcciones direccion = new Direcciones();
-                direccion.codcliente = rdr[0].ToString();
-                direccion.coddireccion = rdr[1].ToString();
-                direccion.tdireccion = rdr[2].ToString();
-                direccion.domicilio = rdr[3].ToString();
-                direccion.ciudad = rdr[4].ToString();
-                direccion.prov = rdr[5].ToString();
-                direccion.cp = rdr[6].ToString();
-                direccion.pais = rdr[7].ToString();
-                direccion.ind1 = rdr[8].ToString();
-                direccion.ind2 = rdr[9].ToString();
-                direccion.ind3 = rdr[10].ToString();
-                direcciones.Add(direccion);
+                while (rdr.Read())
+                {
+                    Direcciones direccion = new Direcciones();
+                    direccion.codcliente = rdr[0].ToString();
+                    direccion.coddireccion = rdr[1].ToString();
+                    direccion.tdireccion = rdr[2].ToString();
+                    direccion.domicilio = rdr[3].ToString();
+                    direccion.ciudad = rdr[4].ToString();
+                    direccion.prov = rdr[5].ToString();
+                    direccion.cp = rdr[6].ToString();
+                    direccion.pais = rdr[7].ToString();
+                    direccion.ind1 = rdr[8].ToString();
+                    direccion.ind2 = rdr[9].ToString();
+                    direccion.ind3 = rdr[10].ToString();
+                    direcciones.Add(direccion);
+                }
+                rdr.Close();
             }
-            rdr.Close();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                Console.ReadLine();
+            }
+
             return direcciones;
         }
 
@@ -567,42 +576,51 @@ namespace AcinoxXML2.Bussiness
 
         private void GenerateXMLDirecciones(List<Direcciones> direccionesList)
         {
-            XmlElement direccionNode;
-            XmlDocument doc = CreateXMLHeaders("direcciones", out direccionNode);
-            foreach (Direcciones direccion in direccionesList)
+
+            try
             {
-                XmlNode socNode = doc.CreateElement("direccion");
-                direccionNode.AppendChild(socNode);
+                XmlElement direccionNode;
+                XmlDocument doc = CreateXMLHeaders("direcciones", out direccionNode);
+                foreach (Direcciones direccion in direccionesList)
+                {
+                    XmlNode socNode = doc.CreateElement("direccion");
+                    direccionNode.AppendChild(socNode);
 
-                XmlNode idNode = doc.CreateElement("codcliente");
-                idNode.InnerText = direccion.codcliente;
-                socNode.AppendChild(idNode);
+                    XmlNode idNode = doc.CreateElement("codcliente");
+                    idNode.InnerText = direccion.codcliente;
+                    socNode.AppendChild(idNode);
 
-                XmlNode codNode = doc.CreateElement("coddireccion");
-                codNode.InnerText = direccion.coddireccion;
-                socNode.AppendChild(codNode);
+                    XmlNode codNode = doc.CreateElement("coddireccion");
+                    codNode.InnerText = direccion.coddireccion;
+                    socNode.AppendChild(codNode);
 
-                XmlNode tipoDireccionNode = doc.CreateElement("tdireccion");
-                tipoDireccionNode.InnerText = direccion.tdireccion;
-                socNode.AppendChild(tipoDireccionNode);
+                    XmlNode tipoDireccionNode = doc.CreateElement("tdireccion");
+                    tipoDireccionNode.InnerText = direccion.tdireccion;
+                    socNode.AppendChild(tipoDireccionNode);
 
-                XmlNode ciudadNode = doc.CreateElement("ciudad");
-                ciudadNode.InnerText = direccion.ciudad;
-                socNode.AppendChild(ciudadNode);
+                    XmlNode ciudadNode = doc.CreateElement("ciudad");
+                    ciudadNode.InnerText = direccion.ciudad;
+                    socNode.AppendChild(ciudadNode);
 
-                XmlNode providenciaNode = doc.CreateElement("prov");
-                providenciaNode.InnerText = direccion.prov;
-                socNode.AppendChild(providenciaNode);
+                    XmlNode providenciaNode = doc.CreateElement("prov");
+                    providenciaNode.InnerText = direccion.prov;
+                    socNode.AppendChild(providenciaNode);
 
-                XmlNode codigoPostalNode = doc.CreateElement("cp");
-                codigoPostalNode.InnerText = direccion.cp;
-                socNode.AppendChild(codigoPostalNode);
+                    XmlNode codigoPostalNode = doc.CreateElement("cp");
+                    codigoPostalNode.InnerText = direccion.cp;
+                    socNode.AppendChild(codigoPostalNode);
 
-                XmlNode paisNode = doc.CreateElement("pais");
-                paisNode.InnerText = direccion.pais;
-                socNode.AppendChild(paisNode);
+                    XmlNode paisNode = doc.CreateElement("pais");
+                    paisNode.InnerText = direccion.pais;
+                    socNode.AppendChild(paisNode);
+                }
+                SavingXMLFile(doc, "direcciones");
             }
-            SavingXMLFile(doc, "direcciones");
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                Console.ReadLine();
+            }
         }
 
         private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterios> creteriosList)
@@ -659,6 +677,7 @@ namespace AcinoxXML2.Bussiness
             XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
             XmlWriter writer = XmlWriter.Create(directory + @"\XML\"+ xmlFileName + ".xml", settings);
             xmlDoc.Save(writer);
+            writer.Close();
         }
 
         #endregion
