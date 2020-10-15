@@ -9,6 +9,8 @@ using MySql.Data.MySqlClient;
 using System.Xml;
 using AcinoxXML2.Models;
 using AcinoxXML2.Bussiness;
+using System.Diagnostics;
+using System.Threading;
 
 namespace AcinoxXML2
 {
@@ -83,6 +85,7 @@ namespace AcinoxXML2
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                Console.ReadLine();
             }
 
             Console.WriteLine("XML files generated");
@@ -92,15 +95,17 @@ namespace AcinoxXML2
 
         public static void validateXMLFiles()
         {
+            //Thread.Sleep(5000);
+
             XSDBussiness xsd = new XSDBussiness();
             xsd.ValidationXSD("sociedades");
             xsd.ValidationXSD("clientes");
             xsd.ValidationXSD("viaspago");
             xsd.ValidationXSD("contactos");
-            //xsd.ValidationXSD("direcciones");
+            xsd.ValidationXSD("direcciones");
             xsd.ValidationXSD("clasifcriterios");
 
-            Console.WriteLine("Done. Press any key to close.");
+            Console.WriteLine("\nDone. Press any key to close.");
             Console.ReadLine();
         }
 

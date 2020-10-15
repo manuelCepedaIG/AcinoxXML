@@ -142,10 +142,11 @@ namespace AcinoxXML2.Bussiness
                         "inner join CIUDADES AS T2 on T1.CIUDAD_CORRESP = T2.ID_CIUDAD " +
                         "inner join DEPARTAMENTOS AS T3 on T1.DPTO_CORRESP = T3.ID_DPTO " +
                         "inner join PAISES AS T4 on T1.PAIS_CORRESP = T4.ID_PAIS " +
+                        "INNER JOIN CONTRATOS AS Con ON Con.ID_TERC = T1.Codigo AND Con.ID_EMP IN('01','02') " +
                         "where " +
                         "(T1.DIRECCION_1 != '' or  " +
                         "T1.DIRECCION_2 != '' or  " +
-                        "T1.DIRECCION_3 != '' ) " ;
+                        "T1.DIRECCION_3 != '' ); ";
                     break;
                 default:
                     sql = "SELECT Codigo AS cod, " +
