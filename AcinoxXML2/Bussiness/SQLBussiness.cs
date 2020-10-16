@@ -24,7 +24,8 @@ namespace AcinoxXML2.Bussiness
     {
         public MySqlConnection connect()
         {
-            string connStr = "server=localhost;user=root;database=acinox;port=3306;password=administrator";
+            string connStr = "server=localhost;user=root;database=pruebaxesor;port=3306;password=IG82020.";
+            //string connStr = "server=localhost;user=root;database=acinox;port=3306;password=administrator";
             MySqlConnection conn = new MySqlConnection(connStr);
             return conn;
         }
@@ -125,7 +126,7 @@ namespace AcinoxXML2.Bussiness
                         "WHEN T1.DIRECCION_1 != '' THEN T1.DIRECCION_1 " +
                         "WHEN T1.DIRECCION_2 != '' THEN T1.DIRECCION_1 " +
                         "WHEN T1.DIRECCION_3 != '' THEN T1.DIRECCION_2 " +
-                        "END as domicilio, /*verificar si esta bien que se seleccione el mismo que coddireccion*/ " +
+                        "END as domicilio,  " +
                         "T2.UNCIUDAD_DESCRIPCION as ciudad, " +
                         "T3.UNDPTO_DESCRIPCION as prov, " +
                         "CASE " +
@@ -142,7 +143,7 @@ namespace AcinoxXML2.Bussiness
                         "inner join CIUDADES AS T2 on T1.CIUDAD_CORRESP = T2.ID_CIUDAD " +
                         "inner join DEPARTAMENTOS AS T3 on T1.DPTO_CORRESP = T3.ID_DPTO " +
                         "inner join PAISES AS T4 on T1.PAIS_CORRESP = T4.ID_PAIS " +
-                        "INNER JOIN CONTRATOS AS Con ON Con.ID_TERC = T1.Codigo AND Con.ID_EMP IN('01','02') " +
+                        "inner join CONTRATOS AS T5 ON T5.ID_TERC = T1.Codigo AND T5.ID_EMP IN('01','02') " +
                         "where " +
                         "(T1.DIRECCION_1 != '' or  " +
                         "T1.DIRECCION_2 != '' or  " +
