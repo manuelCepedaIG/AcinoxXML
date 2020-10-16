@@ -255,17 +255,17 @@ namespace AcinoxXML2.Bussiness
                 while (rdr.Read())
                 {
                     Direcciones direccion = new Direcciones();
-                    direccion.codcliente = rdr[0].ToString();
-                    direccion.coddireccion = rdr[1].ToString();
-                    direccion.tdireccion = rdr[2].ToString();
-                    direccion.domicilio = rdr[3].ToString();
-                    direccion.ciudad = rdr[4].ToString();
-                    direccion.prov = rdr[5].ToString();
-                    direccion.cp = rdr[6].ToString();
-                    direccion.pais = rdr[7].ToString();
-                    direccion.ind1 = rdr[8].ToString();
-                    direccion.ind2 = rdr[9].ToString();
-                    direccion.ind3 = rdr[10].ToString();
+                    direccion.CodigoCliente = rdr[0].ToString();
+                    direccion.CodigoDireccion = rdr[1].ToString();
+                    direccion.TipoDireccion = (int)rdr[2];
+                    direccion.Domicilio = rdr[3].ToString();
+                    direccion.Ciudad = rdr[4].ToString();
+                    direccion.Provincia = rdr[5].ToString();
+                    direccion.CodigoPostal = rdr[6].ToString();
+                    direccion.Pais = rdr[7].ToString();
+                    direccion.Indicador1 = rdr[8].ToString();
+                    direccion.Indicador2 = rdr[9].ToString();
+                    direccion.Indicador3 = rdr[10].ToString();
                     direcciones.Add(direccion);
                 }
                 rdr.Close();
@@ -286,8 +286,8 @@ namespace AcinoxXML2.Bussiness
             {
                 ClasificacionCriterios criterios = new ClasificacionCriterios();
                 criterios.Id = rdr[0].ToString();
-                criterios.Cod = rdr[1].ToString();
-                criterios.Desc = rdr[2].ToString();
+                criterios.Codigo = rdr[1].ToString();
+                criterios.Descripcion = rdr[2].ToString();
                 clasificacionCriterio.Add(criterios);
             }
             rdr.Close();
@@ -587,31 +587,31 @@ namespace AcinoxXML2.Bussiness
                     direccionNode.AppendChild(socNode);
 
                     XmlNode idNode = doc.CreateElement("codcliente");
-                    idNode.InnerText = direccion.codcliente;
+                    idNode.InnerText = direccion.CodigoCliente;
                     socNode.AppendChild(idNode);
 
                     XmlNode codNode = doc.CreateElement("coddireccion");
-                    codNode.InnerText = direccion.coddireccion;
+                    codNode.InnerText = direccion.CodigoDireccion;
                     socNode.AppendChild(codNode);
 
                     XmlNode tipoDireccionNode = doc.CreateElement("tdireccion");
-                    tipoDireccionNode.InnerText = direccion.tdireccion;
+                    tipoDireccionNode.InnerText = direccion.TipoDireccion.ToString();
                     socNode.AppendChild(tipoDireccionNode);
 
                     XmlNode ciudadNode = doc.CreateElement("ciudad");
-                    ciudadNode.InnerText = direccion.ciudad;
+                    ciudadNode.InnerText = direccion.Ciudad;
                     socNode.AppendChild(ciudadNode);
 
                     XmlNode providenciaNode = doc.CreateElement("prov");
-                    providenciaNode.InnerText = direccion.prov;
+                    providenciaNode.InnerText = direccion.Provincia;
                     socNode.AppendChild(providenciaNode);
 
                     XmlNode codigoPostalNode = doc.CreateElement("cp");
-                    codigoPostalNode.InnerText = direccion.cp;
+                    codigoPostalNode.InnerText = direccion.CodigoPostal;
                     socNode.AppendChild(codigoPostalNode);
 
                     XmlNode paisNode = doc.CreateElement("pais");
-                    paisNode.InnerText = direccion.pais;
+                    paisNode.InnerText = direccion.Pais;
                     socNode.AppendChild(paisNode);
                 }
                 SavingXMLFile(doc, "direcciones");
@@ -637,11 +637,11 @@ namespace AcinoxXML2.Bussiness
                 socNode.AppendChild(idNode);
 
                 XmlNode codNode = doc.CreateElement("cod");
-                codNode.InnerText = criterio.Cod;
+                codNode.InnerText = criterio.Codigo;
                 socNode.AppendChild(codNode);
 
                 XmlNode descNode = doc.CreateElement("desc");
-                descNode.InnerText = criterio.Desc;
+                descNode.InnerText = criterio.Descripcion;
                 socNode.AppendChild(descNode);
             }
             SavingXMLFile(doc, "clasifcriterios");

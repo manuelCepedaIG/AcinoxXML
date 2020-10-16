@@ -24,8 +24,8 @@ namespace AcinoxXML2.Bussiness
     {
         public MySqlConnection connect()
         {
-            //string connStr = "server=localhost;user=root;database=pruebaxesor;port=3306;password=IG82020.";
-            string connStr = "server=localhost;user=root;database=acinox;port=3306;password=administrator";
+            string connStr = "server=localhost;user=root;database=pruebaxesor;port=3306;password=IG82020.";
+            //string connStr = "server=localhost;user=root;database=acinox;port=3306;password=administrator";
             MySqlConnection conn = new MySqlConnection(connStr);
             return conn;
         }
