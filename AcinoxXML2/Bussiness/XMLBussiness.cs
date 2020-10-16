@@ -88,11 +88,11 @@ namespace AcinoxXML2.Bussiness
                 cliente.Nif = rdr[1].ToString();
                 cliente.Razons = rdr[2].ToString();
                 cliente.Codcondp = rdr[3].ToString();
-                cliente.Limitrg = rdr[4].ToString();
+                cliente.Limitrg = string.IsNullOrEmpty(rdr[4].ToString()) ? 0 : Convert.ToDecimal(rdr[4].ToString());
                 cliente.Prov = rdr[5].ToString();
                 cliente.Criterio1_ZONA = rdr[6].ToString();
                 cliente.Criterio2_SUBZONA = rdr[7].ToString();
-                cliente.Lrcomp = rdr[8].ToString();
+                cliente.Lrcomp = string.IsNullOrEmpty(rdr[8].ToString()) ? 0 : Convert.ToUInt32(rdr[8].ToString());
                 cliente.Viasp = rdr[9].ToString();
                 cliente.ClasifContable = rdr[10].ToString();
                 cliente.Lsegcredito = string.IsNullOrEmpty(rdr[11].ToString()) ? 0 : Convert.ToDecimal(rdr[11].ToString());
@@ -137,7 +137,7 @@ namespace AcinoxXML2.Bussiness
             FormaPago formaPago = new FormaPago();
             formaPago.Cod = "1";
             formaPago.Desc = "Efectivo";
-            formaPago.Gencart = "0";
+            formaPago.Gencart = 0;
             formaPago.Ind1 = "001";
             formaPago.Ind2 = "EFECTIVO";
             formaPago.Numdias = "0";
@@ -146,7 +146,7 @@ namespace AcinoxXML2.Bussiness
             formaPago = new FormaPago();
             formaPago.Cod = "2";
             formaPago.Desc = "Cheques";
-            formaPago.Gencart = "0";
+            formaPago.Gencart = 0;
             formaPago.Ind1 = "002";
             formaPago.Ind2 = "CHEQUE AL DIA";
             formaPago.Numdias = "0";
@@ -155,7 +155,7 @@ namespace AcinoxXML2.Bussiness
             formaPago = new FormaPago();
             formaPago.Cod = "5";
             formaPago.Desc = "Consignacion";
-            formaPago.Gencart = "0";
+            formaPago.Gencart = 0;
             formaPago.Ind1 = "003";
             formaPago.Ind2 = "CONSIGNACION";
             formaPago.Numdias = "0";
@@ -164,7 +164,7 @@ namespace AcinoxXML2.Bussiness
             formaPago = new FormaPago();
             formaPago.Cod = "1";
             formaPago.Desc = "Efectivo";
-            formaPago.Gencart = "0";
+            formaPago.Gencart = 0;
             formaPago.Ind1 = "004";
             formaPago.Ind2 = "EFECTIVO - DOLAR";
             formaPago.Numdias = "0";
@@ -173,7 +173,7 @@ namespace AcinoxXML2.Bussiness
             formaPago = new FormaPago();
             formaPago.Cod = "3";
             formaPago.Desc = "Otros";
-            formaPago.Gencart = "0";
+            formaPago.Gencart = 0;
             formaPago.Ind1 = "005";
             formaPago.Ind2 = "TARJETA DB";
             formaPago.Numdias = "0";
@@ -182,7 +182,7 @@ namespace AcinoxXML2.Bussiness
             formaPago = new FormaPago();
             formaPago.Cod = "2";
             formaPago.Desc = "Cheques";
-            formaPago.Gencart = "0";
+            formaPago.Gencart = 0;
             formaPago.Ind1 = "006";
             formaPago.Ind2 = "CHEQUES POSFECHADOS";
             formaPago.Numdias = "0";
@@ -191,7 +191,7 @@ namespace AcinoxXML2.Bussiness
             formaPago = new FormaPago();
             formaPago.Cod = "1";
             formaPago.Desc = "Efectivo";
-            formaPago.Gencart = "0";
+            formaPago.Gencart = 0;
             formaPago.Ind1 = "007";
             formaPago.Ind2 = "TRASFERENCIA ELECTRONICA";
             formaPago.Numdias = "0";
@@ -200,7 +200,7 @@ namespace AcinoxXML2.Bussiness
             formaPago = new FormaPago();
             formaPago.Cod = "3";
             formaPago.Desc = "Otros";
-            formaPago.Gencart = "0";
+            formaPago.Gencart = 0;
             formaPago.Ind1 = "998";
             formaPago.Ind2 = "BONOS";
             formaPago.Numdias = "0";
@@ -209,7 +209,7 @@ namespace AcinoxXML2.Bussiness
             formaPago = new FormaPago();
             formaPago.Cod = "3";
             formaPago.Desc = "Otros";
-            formaPago.Gencart = "0";
+            formaPago.Gencart = 0;
             formaPago.Ind1 = "999";
             formaPago.Ind2 = "OTROS";
             formaPago.Numdias = "0";
@@ -231,7 +231,7 @@ namespace AcinoxXML2.Bussiness
                 contacto.Codcontacto = rdr[1].ToString();
                 contacto.Nombre = rdr[2].ToString();
                 contacto.Nif = rdr[3].ToString();
-                contacto.Tcontacto = rdr[4].ToString();
+                contacto.Tcontacto = Convert.ToInt32(rdr[4].ToString());
                 contacto.Coddireccion = rdr[5].ToString();
                 contacto.Tlfmovil = rdr[6].ToString();
                 contacto.Tlffijo = rdr[7].ToString();
@@ -352,7 +352,7 @@ namespace AcinoxXML2.Bussiness
                 clienteNode.AppendChild(codcondpNode);
 
                 XmlNode limitrgNode = doc.CreateElement("limitrg");
-                limitrgNode.InnerText = Cliente.Limitrg;
+                limitrgNode.InnerText = Cliente.Limitrg.ToString();
                 clienteNode.AppendChild(limitrgNode);
 
                 XmlNode provNode = doc.CreateElement("prov");
@@ -393,7 +393,7 @@ namespace AcinoxXML2.Bussiness
                 dim2.AppendChild(dim2CodCrit);
 
                 XmlNode lrcompNode = doc.CreateElement("lrcomp");
-                lrcompNode.InnerText = Cliente.Lrcomp;
+                lrcompNode.InnerText = Cliente.Lrcomp.ToString();
                 clienteNode.AppendChild(lrcompNode);
 
                 XmlNode viaspNode = doc.CreateElement("viasp");
@@ -492,7 +492,7 @@ namespace AcinoxXML2.Bussiness
                 viaNode.AppendChild(descNode);
 
                 XmlNode gencartNode = doc.CreateElement("gencart");
-                gencartNode.InnerText = formaPago.Gencart;
+                gencartNode.InnerText = formaPago.Gencart.ToString();
                 viaNode.AppendChild(gencartNode);
 
                 XmlNode ind1Node = doc.CreateElement("ind1");
@@ -536,7 +536,7 @@ namespace AcinoxXML2.Bussiness
                 contactoNode.AppendChild(nifNode);
 
                 XmlNode tcontactoNode = doc.CreateElement("tcontacto");
-                tcontactoNode.InnerText = contacto.Tcontacto;
+                tcontactoNode.InnerText = contacto.Tcontacto.ToString();
                 contactoNode.AppendChild(tcontactoNode);
 
                 XmlNode coddireccionNode = doc.CreateElement("coddireccion");
