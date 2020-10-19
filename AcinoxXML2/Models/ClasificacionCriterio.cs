@@ -13,7 +13,7 @@ namespace AcinoxXML2.Models
     /// <summary>Obtiene o establece las propiedades para la clasificacion de criterios.</summary>        
 	/// <author>Sinthia Rodriguez - srodriguezv@intergrupo.com.</author>
 	/// <date>16/10/2020</date>
-    public class ClasificacionCriterios
+    public class ClasificacionCriterio
     {
         /// <summary>Obtiene o establece el id.</summary>        
 		/// <value>Valor de codcliente.</value>        
