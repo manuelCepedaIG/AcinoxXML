@@ -94,10 +94,10 @@
     <Compile Include="Bussiness\SQLBussiness.cs" />
     <Compile Include="Bussiness\XMLBussiness.cs" />
     <Compile Include="Bussiness\XSDBussiness.cs" />
-    <Compile Include="Models\ClasificacionCriterios.cs" />
+    <Compile Include="Models\ClasificacionCriterio.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Contacto.cs" />
-    <Compile Include="Models\Direcciones.cs" />
+    <Compile Include="Models\Direccion.cs" />
     <Compile Include="Models\FormaPago.cs" />
     <Compile Include="Models\Sociedad.cs" />
     <Compile Include="Program.cs" />

@@ -48,11 +48,11 @@ namespace AcinoxXML2.Bussiness
                     GenerateXMLContactos(contactoList);
                     break;
                 case "clasifcriterios":
-                    List<ClasificacionCriterios> creteriosList = mapingCriterios(rdr);
+                    List<ClasificacionCriterio> creteriosList = mapingCriterios(rdr);
                     GenerateXMLCriteriosClasificacion(creteriosList);
                     break;
                 case "direcciones":
-                    List<Direcciones> direccionesList = mapingDirecciones(rdr);
+                    List<Direccion> direccionesList = mapingDirecciones(rdr);
                     GenerateXMLDirecciones(direccionesList);
                     break;
                 default:
@@ -247,17 +247,17 @@ namespace AcinoxXML2.Bussiness
             return contactoList;
         }
 
-        private List<Direcciones> mapingDirecciones(MySqlDataReader rdr)
+        private List<Direccion> mapingDirecciones(MySqlDataReader rdr)
         {
-            List<Direcciones> direcciones = new List<Direcciones>();
+            List<Direccion> direcciones = new List<Direccion>();
             try
             {
                 while (rdr.Read())
                 {
-                    Direcciones direccion = new Direcciones();
+                    Direccion direccion = new Direccion();
                     direccion.CodigoCliente = rdr[0].ToString();
                     direccion.CodigoDireccion = rdr[1].ToString();
-                    direccion.TipoDireccion = (int)rdr[2];
+                    direccion.TipoDireccion = Convert.ToInt32(rdr[2]);
                     direccion.Domicilio = rdr[3].ToString();
                     direccion.Ciudad = rdr[4].ToString();
                     direccion.Provincia = rdr[5].ToString();
@@ -279,12 +279,12 @@ namespace AcinoxXML2.Bussiness
             return direcciones;
         }
 
-        private List<ClasificacionCriterios> mapingCriterios(MySqlDataReader rdr)
+        private List<ClasificacionCriterio> mapingCriterios(MySqlDataReader rdr)
         {
-            List<ClasificacionCriterios> clasificacionCriterio = new List<ClasificacionCriterios>();
+            List<ClasificacionCriterio> clasificacionCriterio = new List<ClasificacionCriterio>();
             while (rdr.Read())
             {
-                ClasificacionCriterios criterios = new ClasificacionCriterios();
+                ClasificacionCriterio criterios = new ClasificacionCriterio();
                 criterios.Id = rdr[0].ToString();
                 criterios.Codigo = rdr[1].ToString();
                 criterios.Descripcion = rdr[2].ToString();
@@ -574,14 +574,14 @@ namespace AcinoxXML2.Bussiness
             SavingXMLFile(doc, "contactos");
         }
 
-        private void GenerateXMLDirecciones(List<Direcciones> direccionesList)
+        private void GenerateXMLDirecciones(List<Direccion> direccionesList)
         {
 
             try
             {
                 XmlElement direccionNode;
                 XmlDocument doc = CreateXMLHeaders("direcciones", out direccionNode);
-                foreach (Direcciones direccion in direccionesList)
+                foreach (Direccion direccion in direccionesList)
                 {
                     XmlNode socNode = doc.CreateElement("direccion");
                     direccionNode.AppendChild(socNode);
@@ -623,11 +623,11 @@ namespace AcinoxXML2.Bussiness
             }
         }
 
-        private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterios> creteriosList)
+        private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterio> creteriosList)
         {
             XmlElement criteriosNode;
             XmlDocument doc = CreateXMLHeaders("clasifcriterios", out criteriosNode);
-            foreach (ClasificacionCriterios criterio in creteriosList)
+            foreach (ClasificacionCriterio criterio in creteriosList)
             {
                 XmlNode socNode = doc.CreateElement("critelem");
                 criteriosNode.AppendChild(socNode);

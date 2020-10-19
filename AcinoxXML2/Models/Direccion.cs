@@ -13,7 +13,7 @@ namespace AcinoxXML2.Models
 	/// <summary>Obtiene o establece las propiedades para las direcciones.</summary>        
 	/// <author>Sinthia Rodriguez - srodriguezv@intergrupo.com.</author>
 	/// <date>16/10/2020</date>
-	public class Direcciones
+	public class Direccion
     {
 
 		/// <summary>Obtiene o establece el codigo del cliente.</summary>        
