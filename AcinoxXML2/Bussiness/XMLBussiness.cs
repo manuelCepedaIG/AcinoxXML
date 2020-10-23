@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -383,7 +384,7 @@ namespace AcinoxXML2.Bussiness
                         XmlNode plazo = doc.CreateElement("plazo");
                         agregarNodo(plazo, doc.CreateElement("dsc"), plazoc.Descripcion);
                         agregarNodo(plazo, doc.CreateElement("dias"), plazoc.Dias.ToString());
-                        agregarNodo(plazo, doc.CreateElement("porc"), plazoc.Porcentaje.ToString());
+                        agregarNodo(plazo, doc.CreateElement("porc"), plazoc.Porcentaje.ToString(CultureInfo.CurrentCulture));
                         agregarNodo(plazo, doc.CreateElement("codvia"), plazoc.CodigoViaPago);
                         agregarNodo(plazo, doc.CreateElement("codp"), plazoc.CodigoPlazo);
 
