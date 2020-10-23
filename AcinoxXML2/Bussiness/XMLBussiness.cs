@@ -418,7 +418,7 @@ namespace AcinoxXML2.Bussiness
         private void GenerateXMLCondicionesPago(List<CondicionPago> condicionesPagoList)
         {
             XmlElement nodoPrincipal;
-            XmlDocument doc = CreateXMLHeaders("condspago", out nodoPrincipal);
+            XmlDocument doc = CreateXMLHeaders("condspago", out nodoPrincipal, "cndpago");
             foreach (CondicionPago condicion in condicionesPagoList)
             {
                 XmlNode hijo = doc.CreateElement("cond");
@@ -918,7 +918,7 @@ namespace AcinoxXML2.Bussiness
             SavingXMLFile(doc, "partabiertas");
         }
 
-        private XmlDocument CreateXMLHeaders(string xmlFileName, out XmlElement Node)
+        private XmlDocument CreateXMLHeaders(string xmlFileName, out XmlElement Node, string xsdFileName = "")
         {
             XmlDocument doc = new XmlDocument();
             XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -934,7 +934,7 @@ namespace AcinoxXML2.Bussiness
             Node.SetAttribute("xmlns:xsi", xsi);
 
             XmlAttribute metadata2 = doc.CreateAttribute("noNamespaceSchemaLocation", xsi);
-            metadata2.Value = xmlFileName + ".xsd";
+            metadata2.Value = (string.IsNullOrEmpty(xsdFileName))?xmlFileName:xsdFileName + ".xsd";
             Node.Attributes.Append(metadata2);
 
             doc.AppendChild(Node);
