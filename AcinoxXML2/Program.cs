@@ -83,7 +83,7 @@ namespace AcinoxXML2
                 xml.generateEntity("direcciones", rdr6);
 
                 //MySqlDataReader rdr7 = sql.getQueryData("condicionesPago", conn);
-                //xml.generateEntity("condicionesPago", null);
+                xml.generateEntity("condicionesPago", null);
 
                 MySqlDataReader rdr8 = sql.getQueryData("partabiertas", conn);
                 xml.generateEntity("partabiertas", rdr8);
