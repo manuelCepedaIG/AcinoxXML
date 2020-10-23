@@ -55,13 +55,81 @@ namespace AcinoxXML2.Bussiness
                     List<Direccion> direccionesList = mapingDirecciones(rdr);
                     GenerateXMLDirecciones(direccionesList);
                     break;
+                case "condicionesPago":
+                    List<CondicionPago> condicionesPagoList = MapingCondicionesPago(rdr);
+                    GenerateXMLCondicionesPago(condicionesPagoList);
+                    break;
                 default:
                     break;
             }
         }
 
-
         #region mapping
+        private List<CondicionPago> MapingCondicionesPago(MySqlDataReader rdr)
+        {
+            List<CondicionPago> condicionPagoList = new List<CondicionPago>();
+            #region condiciones de pago
+            CondicionPago condicion1 = new CondicionPago
+            {
+                Codigo = "1",
+                Descripcion = "Sin plazos"
+            };
+            CondicionPago condicion2 = new CondicionPago
+                        {
+                            Codigo = "2",
+                            Descripcion = "Recibos a 30 días",
+                            Plazos = new List<PlazoCondicionPago> { 
+                                GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(100.0),"1",string.Empty)
+                            }
+                        };
+            CondicionPago condicion3 = new CondicionPago
+                        {
+                            Codigo = "3",
+                            Descripcion = "Recibos a 30, 60 y 90 días",
+                            Plazos = new List<PlazoCondicionPago> { 
+                                GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(33.33),"1","1"),
+                                GenerarPlazo("Plazo 2", 90, Convert.ToDecimal(33.33),"2","1"),
+                                GenerarPlazo("Plazo 3", 120, Convert.ToDecimal(33.33),"3","1")
+                            }
+                        };
+            CondicionPago condicion4 = new CondicionPago
+                        {
+                            Codigo = "4",
+                            Descripcion = "Pagaré a 30 días",
+                            Plazos = new List<PlazoCondicionPago> {
+                                GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(100.0),"PLAZO0","2")
+                            }
+                        };
+            CondicionPago condicion5 = new CondicionPago
+                        {
+                            Codigo = "5",
+                            Descripcion = "Transferencia a 30 días",
+                            Plazos = new List<PlazoCondicionPago> {
+                                GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(100.0),"1","14")
+                            }
+                        };
+
+            condicionPagoList.Add(condicion1);
+            condicionPagoList.Add(condicion2);
+            condicionPagoList.Add(condicion3);
+            condicionPagoList.Add(condicion4);
+            condicionPagoList.Add(condicion5);
+            #endregion
+            return condicionPagoList;
+        }
+
+        private static PlazoCondicionPago GenerarPlazo(string descripcion, int dias, decimal porcentaje, string codigoPlazo, string viaPago)
+        {
+            return new PlazoCondicionPago
+            {
+                Descripcion = descripcion,
+                Dias = dias,
+                Porcentaje = porcentaje,
+                CodigoPlazo = codigoPlazo,
+                CodigoViaPago = viaPago
+            };
+        }
+
         public  List<Sociedad> mapingSociedades(MySqlDataReader rdr)
         {
             List<Sociedad> sociedadList = new List<Sociedad>();
@@ -297,6 +365,47 @@ namespace AcinoxXML2.Bussiness
         #endregion
 
         #region GenerateXML
+        private void GenerateXMLCondicionesPago(List<CondicionPago> condicionesPagoList)
+        {
+            XmlElement nodoPrincipal;
+            XmlDocument doc = CreateXMLHeaders("condspago", out nodoPrincipal);
+            foreach (CondicionPago condicion in condicionesPagoList)
+            {
+                XmlNode hijo = doc.CreateElement("cond");
+                agregarNodo(hijo, doc.CreateElement("cod"), condicion.Codigo);
+                agregarNodo(hijo, doc.CreateElement("desc"), condicion.Descripcion);
+                XmlNode propiedadSubs = doc.CreateElement("plazos");
+                agregarNodo(hijo, propiedadSubs, string.Empty);
+                if (condicion.Plazos != null)
+                {
+                    foreach (PlazoCondicionPago plazoc in condicion.Plazos)
+                    {
+                        XmlNode plazo = doc.CreateElement("plazo");
+                        agregarNodo(plazo, doc.CreateElement("dsc"), plazoc.Descripcion);
+                        agregarNodo(plazo, doc.CreateElement("dias"), plazoc.Dias.ToString());
+                        agregarNodo(plazo, doc.CreateElement("porc"), plazoc.Porcentaje.ToString());
+                        agregarNodo(plazo, doc.CreateElement("codvia"), plazoc.CodigoViaPago);
+                        agregarNodo(plazo, doc.CreateElement("codp"), plazoc.CodigoPlazo);
+
+                        agregarNodo(propiedadSubs, plazo, string.Empty);
+                    }
+                }
+
+                nodoPrincipal.AppendChild(hijo);
+            }
+
+            SavingXMLFile(doc, "cndpago");
+        }
+
+        private void agregarNodo(XmlNode padre, XmlNode hijo, string valorHijo)
+        {
+            if (!string.IsNullOrEmpty(valorHijo))
+            {
+                hijo.InnerText = valorHijo;
+            }
+
+            padre.AppendChild(hijo);
+        }
 
         private void GenerateXMLSociedades(List<Sociedad> sociedadList)
         {
