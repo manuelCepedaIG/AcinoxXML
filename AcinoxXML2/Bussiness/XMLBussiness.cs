@@ -80,39 +80,39 @@ namespace AcinoxXML2.Bussiness
                 Descripcion = "Sin plazos"
             };
             CondicionPago condicion2 = new CondicionPago
-                        {
-                            Codigo = "2",
-                            Descripcion = "Recibos a 30 días",
-                            Plazos = new List<PlazoCondicionPago> { 
-                                GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(100.0),"1",string.Empty)
-                            }
-                        };
+            {
+                Codigo = "2",
+                Descripcion = "Recibos a 30 días",
+                Plazos = new List<PlazoCondicionPago> { 
+                    GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(100.0),"1",string.Empty)
+                }
+            };
             CondicionPago condicion3 = new CondicionPago
-                        {
-                            Codigo = "3",
-                            Descripcion = "Recibos a 30, 60 y 90 días",
-                            Plazos = new List<PlazoCondicionPago> { 
-                                GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(33.33),"1","1"),
-                                GenerarPlazo("Plazo 2", 90, Convert.ToDecimal(33.33),"2","1"),
-                                GenerarPlazo("Plazo 3", 120, Convert.ToDecimal(33.33),"3","1")
-                            }
-                        };
+            {
+                Codigo = "3",
+                Descripcion = "Recibos a 30, 60 y 90 días",
+                Plazos = new List<PlazoCondicionPago> { 
+                    GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(33.33),"1","1"),
+                    GenerarPlazo("Plazo 2", 90, Convert.ToDecimal(33.33),"2","1"),
+                    GenerarPlazo("Plazo 3", 120, Convert.ToDecimal(33.33),"3","1")
+                }
+            };
             CondicionPago condicion4 = new CondicionPago
-                        {
-                            Codigo = "4",
-                            Descripcion = "Pagaré a 30 días",
-                            Plazos = new List<PlazoCondicionPago> {
-                                GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(100.0),"PLAZO0","2")
-                            }
-                        };
+            {
+                Codigo = "4",
+                Descripcion = "Pagaré a 30 días",
+                Plazos = new List<PlazoCondicionPago> {
+                    GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(100.0),"PLAZO0","2")
+                }
+            };
             CondicionPago condicion5 = new CondicionPago
-                        {
-                            Codigo = "5",
-                            Descripcion = "Transferencia a 30 días",
-                            Plazos = new List<PlazoCondicionPago> {
-                                GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(100.0),"1","14")
-                            }
-                        };
+            {
+                Codigo = "5",
+                Descripcion = "Transferencia a 30 días",
+                Plazos = new List<PlazoCondicionPago> {
+                    GenerarPlazo("Plazo 1", 30, Convert.ToDecimal(100.0),"1","14")
+                }
+            };
 
             condicionPagoList.Add(condicion1);
             condicionPagoList.Add(condicion2);
@@ -170,19 +170,19 @@ namespace AcinoxXML2.Bussiness
                 cliente.ClasifContable = rdr[10].ToString();
                 cliente.Lsegcredito = string.IsNullOrEmpty(rdr[11].ToString()) ? 0 : Convert.ToDecimal(rdr[11].ToString());
                 cliente.Fchcadsegcred = (rdr[12] == DBNull.Value || string.IsNullOrEmpty(rdr[12].ToString())
-                                                    ? new DateTime(1, 1, 1)
+                                                    ? new DateTime(1900, 1, 1)
                                                     : new DateTime(Convert.ToInt32(rdr[12].ToString().Substring(0, 4)),
                                                                    Convert.ToInt32(rdr[12].ToString().Substring(4, 2)),
                                                                    Convert.ToInt32(rdr[12].ToString().Substring(6, 2))));
                 cliente.Tipoentidad = rdr[13].ToString();
                 cliente.Sector = rdr[14].ToString();
                 cliente.Fchaltaerp = (rdr[15] == DBNull.Value || string.IsNullOrEmpty(rdr[15].ToString()) 
-                                                    ? new DateTime(1, 1, 1) 
+                                                    ? new DateTime(1900, 1, 1) 
                                                     : new DateTime(Convert.ToInt32(rdr[15].ToString().Substring(0,4)), 
                                                                    Convert.ToInt32(rdr[15].ToString().Substring(4,2)),
                                                                    Convert.ToInt32(rdr[15].ToString().Substring(6,2))) );
                 cliente.Fchinitact = (rdr[16] == DBNull.Value || string.IsNullOrEmpty(rdr[16].ToString())
-                                                    ? new DateTime(1, 1, 1)
+                                                    ? new DateTime(1900, 1, 1)
                                                     : new DateTime(Convert.ToInt32(rdr[16].ToString().Substring(0, 4)),
                                                                    Convert.ToInt32(rdr[16].ToString().Substring(4, 2)),
                                                                    Convert.ToInt32(rdr[16].ToString().Substring(6, 2))));
@@ -378,12 +378,12 @@ namespace AcinoxXML2.Bussiness
                 partidaAbierta.Ndoc = rdr[2].ToString();
                 partidaAbierta.Nvcto = rdr[3].ToString();
                 partidaAbierta.Fchemi = (rdr[4] == DBNull.Value || string.IsNullOrEmpty(rdr[4].ToString())
-                                                    ? new DateTime(1, 1, 1)
+                                                    ? new DateTime(1900, 1, 1)
                                                     : new DateTime(Convert.ToInt32(rdr[4].ToString().Substring(0, 4)),
                                                                    Convert.ToInt32(rdr[4].ToString().Substring(4, 2)),
                                                                    Convert.ToInt32(rdr[4].ToString().Substring(6, 2))));
                 partidaAbierta.Fchvcto = (rdr[5] == DBNull.Value || string.IsNullOrEmpty(rdr[5].ToString())
-                                                    ? new DateTime(1, 1, 1)
+                                                    ? new DateTime(1900, 1, 1)
                                                     : new DateTime(Convert.ToInt32(rdr[5].ToString().Substring(0, 4)),
                                                                    Convert.ToInt32(rdr[5].ToString().Substring(4, 2)),
                                                                    Convert.ToInt32(rdr[5].ToString().Substring(6, 2))));
@@ -421,11 +421,11 @@ namespace AcinoxXML2.Bussiness
             XmlDocument doc = CreateXMLHeaders("condspago", out nodoPrincipal, "cndpago");
             foreach (CondicionPago condicion in condicionesPagoList)
             {
-                XmlNode hijo = doc.CreateElement("cond");
-                agregarNodo(hijo, doc.CreateElement("cod"), condicion.Codigo);
-                agregarNodo(hijo, doc.CreateElement("desc"), condicion.Descripcion);
-                XmlNode propiedadSubs = doc.CreateElement("plazos");
-                agregarNodo(hijo, propiedadSubs, string.Empty);
+                XmlNode condNodo = doc.CreateElement("cond");
+                agregarNodo(condNodo, doc.CreateElement("cod"), condicion.Codigo);
+                agregarNodo(condNodo, doc.CreateElement("desc"), condicion.Descripcion);
+                XmlNode plazosNodo = doc.CreateElement("plazos");
+                condNodo.AppendChild(plazosNodo);
                 if (condicion.Plazos != null)
                 {
                     foreach (PlazoCondicionPago plazoc in condicion.Plazos)
@@ -437,24 +437,14 @@ namespace AcinoxXML2.Bussiness
                         agregarNodo(plazo, doc.CreateElement("codvia"), plazoc.CodigoViaPago);
                         agregarNodo(plazo, doc.CreateElement("codp"), plazoc.CodigoPlazo);
 
-                        agregarNodo(propiedadSubs, plazo, string.Empty);
+                        plazosNodo.AppendChild(plazo);
                     }
                 }
 
-                nodoPrincipal.AppendChild(hijo);
+                nodoPrincipal.AppendChild(condNodo);
             }
 
             SavingXMLFile(doc, "cndpago");
-        }
-
-        private void agregarNodo(XmlNode padre, XmlNode hijo, string valorHijo)
-        {
-            if (!string.IsNullOrEmpty(valorHijo))
-            {
-                hijo.InnerText = valorHijo;
-            }
-
-            padre.AppendChild(hijo);
         }
 
         private void GenerateXMLSociedades(List<Sociedad> sociedadList)
@@ -466,21 +456,10 @@ namespace AcinoxXML2.Bussiness
                 XmlNode socNode = doc.CreateElement("soc");
                 sociedadesNode.AppendChild(socNode);
 
-                XmlNode codNode = doc.CreateElement("cod");
-                codNode.InnerText = sociedad.Cod;
-                socNode.AppendChild(codNode);
-
-                XmlNode razonsNode = doc.CreateElement("razons");
-                razonsNode.InnerText = sociedad.Razons;
-                socNode.AppendChild(razonsNode);
-
-                XmlNode nifNode = doc.CreateElement("nif");
-                nifNode.InnerText = sociedad.Nif;
-                socNode.AppendChild(nifNode);
-
-                XmlNode codmonedaNode = doc.CreateElement("codmoneda");
-                codmonedaNode.InnerText = sociedad.Codmoneda;
-                socNode.AppendChild(codmonedaNode);
+                agregarNodo(socNode, doc.CreateElement("cod"), sociedad.Cod);
+                agregarNodo(socNode, doc.CreateElement("razons"), sociedad.Cod);
+                agregarNodo(socNode, doc.CreateElement("nif"), sociedad.Cod);
+                agregarNodo(socNode, doc.CreateElement("codmoneda"), sociedad.Cod);
             }
             SavingXMLFile(doc, "sociedades");
         }
@@ -494,29 +473,11 @@ namespace AcinoxXML2.Bussiness
                 XmlNode clienteNode = doc.CreateElement("cliente");
                 clientesNode.AppendChild(clienteNode);
 
-                XmlNode codNode = doc.CreateElement("cod");
-                codNode.InnerText = Cliente.Cod;
-                clienteNode.AppendChild(codNode);
-
-                XmlNode nifNode = doc.CreateElement("nif");
-                nifNode.InnerText = Cliente.Nif;
-                clienteNode.AppendChild(nifNode);
-
-                XmlNode razonsNode = doc.CreateElement("razons");
-                razonsNode.InnerText = Cliente.Razons;
-                clienteNode.AppendChild(razonsNode);
-
-                XmlNode codcondpNode = doc.CreateElement("codcondp");
-                codcondpNode.InnerText = Cliente.Codcondp;
-                clienteNode.AppendChild(codcondpNode);
-
-                XmlNode limitrgNode = doc.CreateElement("limitrg");
-                limitrgNode.InnerText = Cliente.Limitrg.ToString().Replace(",", "."); ;
-                clienteNode.AppendChild(limitrgNode);
-
-                XmlNode provNode = doc.CreateElement("prov");
-                provNode.InnerText = Cliente.Prov;
-                clienteNode.AppendChild(provNode);
+                agregarNodo(clienteNode, doc.CreateElement("cod"), Cliente.Cod);
+                agregarNodo(clienteNode, doc.CreateElement("nif"), Cliente.Nif);
+                agregarNodo(clienteNode, doc.CreateElement("razons"), Cliente.Razons);
+                agregarNodo(clienteNode, doc.CreateElement("codcondp"), Cliente.Codcondp);
+                agregarNodo(clienteNode, doc.CreateElement("limitrg"), Cliente.Limitrg.ToString().Replace(",", "."));
 
                 XmlNode dims = doc.CreateElement("dims");
                 clienteNode.AppendChild(dims);
@@ -524,111 +485,40 @@ namespace AcinoxXML2.Bussiness
                 XmlNode dim = doc.CreateElement("dim");
                 dims.AppendChild(dim);
 
-                XmlNode dimOrden = doc.CreateElement("orden");
-                dimOrden.InnerText = "1";
-                dim.AppendChild(dimOrden);
-
-                XmlNode dimCodElem = doc.CreateElement("codelem");
-                dimCodElem.InnerText = Cliente.Criterio1_ZONA;
-                dim.AppendChild(dimCodElem);
-
-                XmlNode dimCodCrit = doc.CreateElement("codcrit");
-                dimCodCrit.InnerText = "1001";
-                dim.AppendChild(dimCodCrit);
+                agregarNodo(dim, doc.CreateElement("orden"), "1");
+                agregarNodo(dim, doc.CreateElement("codelem"), Cliente.Criterio1_ZONA);
+                agregarNodo(dim, doc.CreateElement("codcrit"), "1001");
 
                 XmlNode dim2 = doc.CreateElement("dim");
                 dims.AppendChild(dim2);
 
-                XmlNode dim2Orden = doc.CreateElement("orden");
-                dim2Orden.InnerText = "2";
-                dim2.AppendChild(dim2Orden);
-
-                XmlNode dim2CodElem = doc.CreateElement("codelem");
-                dim2CodElem.InnerText = Cliente.Criterio2_SUBZONA;
-                dim2.AppendChild(dim2CodElem);
-
-                XmlNode dim2CodCrit = doc.CreateElement("codcrit");
-                dim2CodCrit.InnerText = "1002";
-                dim2.AppendChild(dim2CodCrit);
-
-                XmlNode lrcompNode = doc.CreateElement("lrcomp");
-                lrcompNode.InnerText = Cliente.Lrcomp.ToString();
-                clienteNode.AppendChild(lrcompNode);
+                agregarNodo(dim2, doc.CreateElement("orden"), "2");
+                agregarNodo(dim2, doc.CreateElement("codelem"), Cliente.Criterio2_SUBZONA);
+                agregarNodo(dim2, doc.CreateElement("codcrit"), "1002");
+;
+                agregarNodo(clienteNode, doc.CreateElement("lrcomp"), Cliente.Lrcomp.ToString());
 
                 XmlNode viaspNode = doc.CreateElement("viasp");
                 clienteNode.AppendChild(viaspNode);
 
-                XmlNode codvp = doc.CreateElement("codvp");
-                codvp.InnerText = Cliente.Viasp;
-                viaspNode.AppendChild(codvp);
+                agregarNodo(viaspNode, doc.CreateElement("codvp"), Cliente.Viasp);
 
-                XmlNode lsegcreditoNode = doc.CreateElement("lsegcredito");
-                lsegcreditoNode.InnerText = Cliente.Lsegcredito.ToString().Replace(",", "."); ;
-                clienteNode.AppendChild(lsegcreditoNode);
+                agregarNodo(clienteNode, doc.CreateElement("lsegcredito"), Cliente.Lsegcredito.ToString().Replace(",", "."));
+                agregarNodo(clienteNode, doc.CreateElement("fchcadsegcred"), Cliente.Fchcadsegcred.ToString("yyyy-MM-dd"));
+                agregarNodo(clienteNode, doc.CreateElement("tipoentidad"), Cliente.Tipoentidad);
+                agregarNodo(clienteNode, doc.CreateElement("sector"), Cliente.Sector);
+                agregarNodo(clienteNode, doc.CreateElement("fchaltaerp"), Cliente.Fchaltaerp.ToString("yyyy-MM-dd"));
+                agregarNodo(clienteNode, doc.CreateElement("fchinitact"), Cliente.Fchinitact.ToString("yyyy-MM-dd"));
+                agregarNodo(clienteNode, doc.CreateElement("ind1"), Cliente.Ind1);
+                agregarNodo(clienteNode, doc.CreateElement("ind2"), Cliente.Ind2);
+                agregarNodo(clienteNode, doc.CreateElement("ind3"), Cliente.Ind3);
+                agregarNodo(clienteNode, doc.CreateElement("ind4"), Cliente.Ind4);
+                agregarNodo(clienteNode, doc.CreateElement("ind5"), Cliente.Ind5);
+                agregarNodo(clienteNode, doc.CreateElement("ind6"), Cliente.Ind6);
+                agregarNodo(clienteNode, doc.CreateElement("ind7"), Cliente.Ind7);
+                agregarNodo(clienteNode, doc.CreateElement("ind8"), Cliente.Ind8);
+                agregarNodo(clienteNode, doc.CreateElement("ind9"), Cliente.Ind9);
 
-                XmlNode fchcadsegcredNode = doc.CreateElement("fchcadsegcred");
-                fchcadsegcredNode.InnerText = Cliente.Fchcadsegcred.ToString("yyyy-MM-dd");
-                clienteNode.AppendChild(fchcadsegcredNode);
-
-                XmlNode tipoentidadNode = doc.CreateElement("tipoentidad");
-                tipoentidadNode.InnerText = Cliente.Tipoentidad;
-                clienteNode.AppendChild(tipoentidadNode);
-
-                XmlNode sectorNode = doc.CreateElement("sector");
-                sectorNode.InnerText = Cliente.Sector;
-                clienteNode.AppendChild(sectorNode);
-
-                XmlNode fchaltaerpNode = doc.CreateElement("fchaltaerp");
-                fchaltaerpNode.InnerText = Cliente.Fchaltaerp.ToString("yyyy-MM-dd");
-                clienteNode.AppendChild(fchaltaerpNode);
-
-                XmlNode fchinitactNode = doc.CreateElement("fchinitact");
-                fchinitactNode.InnerText = Cliente.Fchinitact.ToString("yyyy-MM-dd");
-                clienteNode.AppendChild(fchinitactNode);
-
-                XmlNode ind1Node = doc.CreateElement("ind1");
-                ind1Node.InnerText = Cliente.Ind1;
-                clienteNode.AppendChild(ind1Node);
-
-                XmlNode ind2Node = doc.CreateElement("ind2");
-                ind2Node.InnerText = Cliente.Ind2;
-                clienteNode.AppendChild(ind2Node);
-
-                XmlNode ind3Node = doc.CreateElement("ind3");
-                ind3Node.InnerText = Cliente.Ind3;
-                clienteNode.AppendChild(ind3Node);
-
-                XmlNode ind4Node = doc.CreateElement("ind4");
-                ind4Node.InnerText = Cliente.Ind4;
-                clienteNode.AppendChild(ind4Node);
-
-                XmlNode ind5Node = doc.CreateElement("ind5");
-                ind5Node.InnerText = Cliente.Ind5;
-                clienteNode.AppendChild(ind5Node);
-
-                XmlNode ind6Node = doc.CreateElement("ind6");
-                ind6Node.InnerText = Cliente.Ind6;
-                clienteNode.AppendChild(ind6Node);
-
-                XmlNode ind7Node = doc.CreateElement("ind7");
-                ind7Node.InnerText = Cliente.Ind7;
-                clienteNode.AppendChild(ind7Node);
-
-                XmlNode ind8Node = doc.CreateElement("ind8");
-                ind8Node.InnerText = Cliente.Ind8;
-                clienteNode.AppendChild(ind8Node);
-
-                XmlNode ind9Node = doc.CreateElement("ind9");
-                ind9Node.InnerText = Cliente.Ind9;
-                clienteNode.AppendChild(ind9Node);
-
-                //XmlNode tieneavalNode = doc.CreateElement("tieneaval");
-                //tieneavalNode.InnerText = Cliente.TieneAval;
-                //clienteNode.AppendChild(tieneavalNode);
-
-                //XmlNode tipoavalNode = doc.CreateElement("tipoaval");
-                //tipoavalNode.InnerText = Cliente.TipoAval;
-                //clienteNode.AppendChild(tipoavalNode);
             }
             SavingXMLFile(doc, "clientes");
         }
@@ -642,29 +532,12 @@ namespace AcinoxXML2.Bussiness
                 XmlNode viaNode = doc.CreateElement("via");
                 viaspagoNode.AppendChild(viaNode);
 
-                XmlNode codNode = doc.CreateElement("cod");
-                codNode.InnerText = formaPago.Cod;
-                viaNode.AppendChild(codNode);
-
-                XmlNode descNode = doc.CreateElement("desc");
-                descNode.InnerText = formaPago.Desc;
-                viaNode.AppendChild(descNode);
-
-                XmlNode gencartNode = doc.CreateElement("gencart");
-                gencartNode.InnerText = formaPago.Gencart.ToString();
-                viaNode.AppendChild(gencartNode);
-
-                XmlNode ind1Node = doc.CreateElement("ind1");
-                ind1Node.InnerText = formaPago.Ind1;
-                viaNode.AppendChild(ind1Node);
-
-                XmlNode ind2Node = doc.CreateElement("ind2");
-                ind2Node.InnerText = formaPago.Ind2;
-                viaNode.AppendChild(ind2Node);
-
-                XmlNode numdiasNode = doc.CreateElement("numdias");
-                numdiasNode.InnerText = formaPago.Numdias;
-                viaNode.AppendChild(numdiasNode);
+                agregarNodo(viaNode, doc.CreateElement("cod"), formaPago.Cod);
+                agregarNodo(viaNode, doc.CreateElement("desc"), formaPago.Desc);
+                agregarNodo(viaNode, doc.CreateElement("gencart"), formaPago.Gencart.ToString());
+                agregarNodo(viaNode, doc.CreateElement("ind1"), formaPago.Ind1);
+                agregarNodo(viaNode, doc.CreateElement("ind2"), formaPago.Ind2);
+                agregarNodo(viaNode, doc.CreateElement("numdias"), formaPago.Numdias);
             }
             SavingXMLFile(doc, "viaspago");
         }
@@ -678,100 +551,40 @@ namespace AcinoxXML2.Bussiness
                 XmlNode contactoNode = doc.CreateElement("contacto");
                 contactosNode.AppendChild(contactoNode);
 
-                XmlNode codclienteNode = doc.CreateElement("codcliente");
-                codclienteNode.InnerText = contacto.Codcliente;
-                contactoNode.AppendChild(codclienteNode);
-
-                XmlNode codcontactoNode = doc.CreateElement("codcontacto");
-                codcontactoNode.InnerText = contacto.Codcontacto;
-                contactoNode.AppendChild(codcontactoNode);
-
-                XmlNode nombreNode = doc.CreateElement("nombre");
-                nombreNode.InnerText = contacto.Nombre;
-                contactoNode.AppendChild(nombreNode);
-
-                XmlNode nifNode = doc.CreateElement("nif");
-                nifNode.InnerText = contacto.Nif;
-                contactoNode.AppendChild(nifNode);
-
-                XmlNode tcontactoNode = doc.CreateElement("tcontacto");
-                tcontactoNode.InnerText = contacto.Tcontacto.ToString();
-                contactoNode.AppendChild(tcontactoNode);
-
-                XmlNode coddireccionNode = doc.CreateElement("coddireccion");
-                coddireccionNode.InnerText = contacto.Coddireccion;
-                contactoNode.AppendChild(coddireccionNode);
-
-                XmlNode tlfmovilNode = doc.CreateElement("tlfmovil");
-                tlfmovilNode.InnerText = contacto.Tlfmovil;
-                contactoNode.AppendChild(tlfmovilNode);
-
-                XmlNode tlffijoNode = doc.CreateElement("tlffijo");
-                tlffijoNode.InnerText = contacto.Tlffijo;
-                contactoNode.AppendChild(tlffijoNode);
-
-                XmlNode faxNode = doc.CreateElement("fax");
-                faxNode.InnerText = contacto.Fax;
-                contactoNode.AppendChild(faxNode);
-
-                XmlNode emailNode = doc.CreateElement("email");
-                emailNode.InnerText = contacto.Email;
-                contactoNode.AppendChild(emailNode);
-
-                XmlNode ind1Node = doc.CreateElement("ind1");
-                ind1Node.InnerText = contacto.Ind1;
-                contactoNode.AppendChild(ind1Node);
-
-                XmlNode ind2Node = doc.CreateElement("ind2");
-                ind2Node.InnerText = contacto.Ind2;
-                contactoNode.AppendChild(ind2Node);
-
-                XmlNode ind3Node = doc.CreateElement("ind3");
-                ind3Node.InnerText = contacto.Ind3;
-                contactoNode.AppendChild(ind3Node);
+                agregarNodo(contactoNode, doc.CreateElement("codcliente"), contacto.Codcliente);
+                agregarNodo(contactoNode, doc.CreateElement("codcontacto"), contacto.Codcontacto);
+                agregarNodo(contactoNode, doc.CreateElement("nombre"), contacto.Nombre);
+                agregarNodo(contactoNode, doc.CreateElement("nif"), contacto.Nif);
+                agregarNodo(contactoNode, doc.CreateElement("tcontacto"), contacto.Tcontacto.ToString());
+                agregarNodo(contactoNode, doc.CreateElement("tlfmovil"), contacto.Tlfmovil);
+                agregarNodo(contactoNode, doc.CreateElement("tlffijo"), contacto.Tlffijo);
+                agregarNodo(contactoNode, doc.CreateElement("fax"), contacto.Fax);
+                agregarNodo(contactoNode, doc.CreateElement("email"), contacto.Email);
+                agregarNodo(contactoNode, doc.CreateElement("ind1"), contacto.Ind1);
+                agregarNodo(contactoNode, doc.CreateElement("ind2"), contacto.Ind2);
+                agregarNodo(contactoNode, doc.CreateElement("ind3"), contacto.Ind3);
             }
             SavingXMLFile(doc, "contactos");
         }
 
         private void GenerateXMLDirecciones(List<Direccion> direccionesList)
         {
-
             try
             {
-                XmlElement direccionNode;
-                XmlDocument doc = CreateXMLHeaders("direcciones", out direccionNode);
+                XmlElement direccionesNode;
+                XmlDocument doc = CreateXMLHeaders("direcciones", out direccionesNode);
                 foreach (Direccion direccion in direccionesList)
                 {
-                    XmlNode socNode = doc.CreateElement("direccion");
-                    direccionNode.AppendChild(socNode);
+                    XmlNode direccionNode = doc.CreateElement("direccion");
+                    direccionesNode.AppendChild(direccionNode);
 
-                    XmlNode idNode = doc.CreateElement("codcliente");
-                    idNode.InnerText = direccion.CodigoCliente;
-                    socNode.AppendChild(idNode);
-
-                    XmlNode codNode = doc.CreateElement("coddireccion");
-                    codNode.InnerText = direccion.CodigoDireccion;
-                    socNode.AppendChild(codNode);
-
-                    XmlNode tipoDireccionNode = doc.CreateElement("tdireccion");
-                    tipoDireccionNode.InnerText = direccion.TipoDireccion.ToString();
-                    socNode.AppendChild(tipoDireccionNode);
-
-                    XmlNode ciudadNode = doc.CreateElement("ciudad");
-                    ciudadNode.InnerText = direccion.Ciudad;
-                    socNode.AppendChild(ciudadNode);
-
-                    XmlNode providenciaNode = doc.CreateElement("prov");
-                    providenciaNode.InnerText = direccion.Provincia;
-                    socNode.AppendChild(providenciaNode);
-
-                    XmlNode codigoPostalNode = doc.CreateElement("cp");
-                    codigoPostalNode.InnerText = direccion.CodigoPostal;
-                    socNode.AppendChild(codigoPostalNode);
-
-                    XmlNode paisNode = doc.CreateElement("pais");
-                    paisNode.InnerText = direccion.Pais;
-                    socNode.AppendChild(paisNode);
+                    agregarNodo(direccionNode, doc.CreateElement("codcliente"), direccion.CodigoCliente);
+                    agregarNodo(direccionNode, doc.CreateElement("coddireccion"), direccion.CodigoDireccion);
+                    agregarNodo(direccionNode, doc.CreateElement("tdireccion"), direccion.TipoDireccion.ToString());
+                    agregarNodo(direccionNode, doc.CreateElement("ciudad"), direccion.Ciudad);
+                    agregarNodo(direccionNode, doc.CreateElement("prov"), direccion.Provincia);
+                    agregarNodo(direccionNode, doc.CreateElement("cp"), direccion.CodigoPostal);
+                    agregarNodo(direccionNode, doc.CreateElement("pais"), direccion.Pais);
                 }
                 SavingXMLFile(doc, "direcciones");
             }
@@ -788,20 +601,12 @@ namespace AcinoxXML2.Bussiness
             XmlDocument doc = CreateXMLHeaders("clasifcriterios", out criteriosNode);
             foreach (ClasificacionCriterio criterio in creteriosList)
             {
-                XmlNode socNode = doc.CreateElement("critelem");
-                criteriosNode.AppendChild(socNode);
+                XmlNode critelemNode = doc.CreateElement("critelem");
+                criteriosNode.AppendChild(critelemNode);
 
-                XmlNode idNode = doc.CreateElement("id");
-                idNode.InnerText = criterio.Id;
-                socNode.AppendChild(idNode);
-
-                XmlNode codNode = doc.CreateElement("cod");
-                codNode.InnerText = criterio.Codigo;
-                socNode.AppendChild(codNode);
-
-                XmlNode descNode = doc.CreateElement("desc");
-                descNode.InnerText = criterio.Descripcion;
-                socNode.AppendChild(descNode);
+                agregarNodo(critelemNode, doc.CreateElement("id"), criterio.Id);
+                agregarNodo(critelemNode, doc.CreateElement("cod"), criterio.Codigo);
+                agregarNodo(critelemNode, doc.CreateElement("desc"), criterio.Descripcion);
             }
             SavingXMLFile(doc, "clasifcriterios");
         }
@@ -815,106 +620,32 @@ namespace AcinoxXML2.Bussiness
                 XmlNode partNode = doc.CreateElement("part");
                 partidaAbiertaNode.AppendChild(partNode);
 
-                XmlNode codcliNode = doc.CreateElement("codcli");
-                codcliNode.InnerText = partidaAbierta.Codcli;
-                partNode.AppendChild(codcliNode);
-
-                XmlNode tdocNode = doc.CreateElement("tdoc");
-                tdocNode.InnerText = partidaAbierta.Tdoc;
-                partNode.AppendChild(tdocNode);
-
-                XmlNode ndocNode = doc.CreateElement("ndoc");
-                ndocNode.InnerText = partidaAbierta.Ndoc;
-                partNode.AppendChild(ndocNode);
-
-                XmlNode nvctoNode = doc.CreateElement("nvcto");
-                nvctoNode.InnerText = partidaAbierta.Nvcto;
-                partNode.AppendChild(nvctoNode);
-
-                XmlNode fchemiNode = doc.CreateElement("fchemi");
-                fchemiNode.InnerText = partidaAbierta.Fchemi.ToString("yyyy-MM-dd");
-                partNode.AppendChild(fchemiNode);
-
-                XmlNode fchvctoNode = doc.CreateElement("fchvcto");
-                fchvctoNode.InnerText = partidaAbierta.Fchvcto.ToString("yyyy-MM-dd");
-                partNode.AppendChild(fchvctoNode);
-
-                XmlNode importeNode = doc.CreateElement("importe");
-                importeNode.InnerText = partidaAbierta.Importe.ToString().Replace(",",".");
-                partNode.AppendChild(importeNode);
-
-                XmlNode estadoNode = doc.CreateElement("estado");
-                estadoNode.InnerText = partidaAbierta.Estado.ToString();
-                partNode.AppendChild(estadoNode);
-
-                XmlNode dotadaNode = doc.CreateElement("dotada");
-                dotadaNode.InnerText = partidaAbierta.Dotada.ToString();
-                partNode.AppendChild(dotadaNode);
-
-                XmlNode codvpNode = doc.CreateElement("codvp");
-                codvpNode.InnerText = partidaAbierta.Codvp;
-                partNode.AppendChild(codvpNode);
-
-                XmlNode codcondpNode = doc.CreateElement("codcondp");
-                codcondpNode.InnerText = partidaAbierta.Codcondp;
-                partNode.AppendChild(codcondpNode);
-
-                XmlNode codmondocNode = doc.CreateElement("codmondoc");
-                codmondocNode.InnerText = partidaAbierta.Codmondoc;
-                partNode.AppendChild(codmondocNode);
-
-                XmlNode impmondocNode = doc.CreateElement("impmondoc");
-                impmondocNode.InnerText = partidaAbierta.Impmondoc;
-                partNode.AppendChild(impmondocNode);
-
-                XmlNode ind1Node = doc.CreateElement("ind1");
-                ind1Node.InnerText = partidaAbierta.Ind1;
-                partNode.AppendChild(ind1Node);
-
-                XmlNode ind2Node = doc.CreateElement("ind2");
-                ind2Node.InnerText = partidaAbierta.Ind2;
-                partNode.AppendChild(ind2Node);
-
-                XmlNode ind3Node = doc.CreateElement("ind3");
-                ind3Node.InnerText = partidaAbierta.Ind3;
-                partNode.AppendChild(ind3Node);
-
-                XmlNode ind4Node = doc.CreateElement("ind4");
-                ind4Node.InnerText = partidaAbierta.Ind4;
-                partNode.AppendChild(ind4Node);
-
-                XmlNode ind5Node = doc.CreateElement("ind5");
-                ind5Node.InnerText = partidaAbierta.Ind5;
-                partNode.AppendChild(ind5Node);
-
-                XmlNode ind6Node = doc.CreateElement("ind6");
-                ind6Node.InnerText = partidaAbierta.Ind6;
-                partNode.AppendChild(ind6Node);
-
-                XmlNode ind7Node = doc.CreateElement("ind7");
-                ind7Node.InnerText = partidaAbierta.Ind7;
-                partNode.AppendChild(ind7Node);
-
-                XmlNode ind8Node = doc.CreateElement("ind8");
-                ind8Node.InnerText = partidaAbierta.Ind8;
-                partNode.AppendChild(ind8Node);
-
-                XmlNode ind9Node = doc.CreateElement("ind9");
-                ind9Node.InnerText = partidaAbierta.Ind9;
-                partNode.AppendChild(ind9Node);
-
-                XmlNode campoidNode = doc.CreateElement("campoid");
-                campoidNode.InnerText = partidaAbierta.Campoid;
-                partNode.AppendChild(campoidNode);
-
-                XmlNode codejercicioNode = doc.CreateElement("codejercicio");
-                codejercicioNode.InnerText = partidaAbierta.Codejercicio;
-                partNode.AppendChild(codejercicioNode);
-
-                XmlNode numdocorigenNode = doc.CreateElement("numdocorigen");
-                numdocorigenNode.InnerText = partidaAbierta.Numdocorigen;
-                partNode.AppendChild(numdocorigenNode);
-            }
+                agregarNodo(partNode, doc.CreateElement("codcli"), partidaAbierta.Codcli);
+                agregarNodo(partNode, doc.CreateElement("tdoc"), partidaAbierta.Tdoc);
+                agregarNodo(partNode, doc.CreateElement("ndoc"), partidaAbierta.Ndoc);
+                agregarNodo(partNode, doc.CreateElement("nvcto"), partidaAbierta.Nvcto);
+                agregarNodo(partNode, doc.CreateElement("fchemi"), partidaAbierta.Fchemi.ToString("yyyy-MM-dd"));
+                agregarNodo(partNode, doc.CreateElement("fchvcto"), partidaAbierta.Fchvcto.ToString("yyyy-MM-dd"));
+                agregarNodo(partNode, doc.CreateElement("importe"), partidaAbierta.Importe.ToString().Replace(",", "."));
+                agregarNodo(partNode, doc.CreateElement("estado"), partidaAbierta.Estado.ToString());
+                agregarNodo(partNode, doc.CreateElement("dotada"), partidaAbierta.Dotada.ToString());
+                agregarNodo(partNode, doc.CreateElement("codvp"), partidaAbierta.Codvp);
+                agregarNodo(partNode, doc.CreateElement("codcondp"), partidaAbierta.Codcondp);
+                agregarNodo(partNode, doc.CreateElement("codmondoc"), partidaAbierta.Codmondoc);
+                agregarNodo(partNode, doc.CreateElement("impmondoc"), partidaAbierta.Impmondoc);
+                agregarNodo(partNode, doc.CreateElement("ind1"), partidaAbierta.Ind1);
+                agregarNodo(partNode, doc.CreateElement("ind2"), partidaAbierta.Ind2);
+                agregarNodo(partNode, doc.CreateElement("ind3"), partidaAbierta.Ind3);
+                agregarNodo(partNode, doc.CreateElement("ind4"), partidaAbierta.Ind4);
+                agregarNodo(partNode, doc.CreateElement("ind5"), partidaAbierta.Ind5);
+                agregarNodo(partNode, doc.CreateElement("ind6"), partidaAbierta.Ind6);
+                agregarNodo(partNode, doc.CreateElement("ind7"), partidaAbierta.Ind7);
+                agregarNodo(partNode, doc.CreateElement("ind8"), partidaAbierta.Ind8);
+                agregarNodo(partNode, doc.CreateElement("ind9"), partidaAbierta.Ind9);
+                agregarNodo(partNode, doc.CreateElement("campoid"), partidaAbierta.Campoid);
+                agregarNodo(partNode, doc.CreateElement("codejercicio"), partidaAbierta.Codejercicio);
+                agregarNodo(partNode, doc.CreateElement("numdocorigen"), partidaAbierta.Numdocorigen);
+                            }
             SavingXMLFile(doc, "partabiertas");
         }
 
@@ -949,6 +680,12 @@ namespace AcinoxXML2.Bussiness
             XmlWriter writer = XmlWriter.Create(directory + @"\XML\"+ xmlFileName + ".xml", settings);
             xmlDoc.Save(writer);
             writer.Close();
+        }
+
+        private void agregarNodo(XmlNode padre, XmlNode hijo, string valorHijo)
+        {
+            hijo.InnerText = valorHijo;
+            padre.AppendChild(hijo);
         }
 
         #endregion
