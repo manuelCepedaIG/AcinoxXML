@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="condspago">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" nillable="true" name="cond">
+          <xs:complexType>
+            <xs:all>
+
+              <xs:element name="cod">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="desc" minOccurs="0" nillable="true">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              
+              <xs:element name="plazos" >
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="plazo" minOccurs="0" nillable="true">
+                      <xs:complexType>
+                        <xs:all>
+                          
+                          <xs:element name="dsc" minOccurs="0" nillable="true">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="64"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          
+                          <xs:element name="dias" type="xs:integer" />
+                          <xs:element name="porc" type="xs:decimal" />
+                          
+                          <xs:element name="codvia" minOccurs="0" nillable="true">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="64"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          
+                          <xs:element name="codp" minOccurs="0" nillable="true">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="64"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

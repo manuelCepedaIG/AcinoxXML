@@ -99,6 +99,7 @@
     <Compile Include="Models\Contacto.cs" />
     <Compile Include="Models\Direccion.cs" />
     <Compile Include="Models\FormaPago.cs" />
+    <Compile Include="Models\PartidaAbierta.cs" />
     <Compile Include="Models\Sociedad.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,10 +113,25 @@
     <None Include="XSD\clientes.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="XSD\cndpago.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="XSD\contactos.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="XSD\direcciones.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XSD\partabiertas.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XSD\partcomps.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XSD\partcompsinv.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XSD\saldosnofacturados.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="XSD\sociedades.xsd">

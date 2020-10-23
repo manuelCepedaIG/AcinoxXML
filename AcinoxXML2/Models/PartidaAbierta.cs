@@ -1,5 +1,5 @@
 ﻿/// ----------------------------------------------------------------------------
-/// <copyright file="Cliente.cs" company="Intergrupo S.A.">
+/// <copyright file="PartidaAbierta.cs" company="Intergrupo S.A.">
 ///     COPYRIGHT(C) 2020, Intergrupo S.A.
 /// </copyright>
 /// <author>Manuel Cepeda.  - mcepeda@intergrupo.com.</author>
@@ -12,178 +12,160 @@ using System;
 
 namespace AcinoxXML2.Models
 {
-    /// <summary>Entidad Cliente</summary>        
-    /// <value>Clase cliente.</value>        
+    /// <summary>Entidad PartidaAbierta</summary>        
+    /// <value>Clase PartidaAbierta.</value>        
     /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-    /// <datetime>15/10/2020.</datetime>
-    public class Cliente
+    /// <datetime>22/10/2020.</datetime>
+    public class PartidaAbierta
     {
         /// <summary>Propiedad de clase</summary>        
-        /// <value>Cod</value>        
+        /// <value>Codcli</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string Cod { get; set; }
+        /// <datetime>22/10/2020.</datetime>
+        public string Codcli { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
-        /// <value>Nif</value>        
+        /// <value>Tdoc</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string Nif { get; set; }
+        /// <datetime>22/10/2020.</datetime>
+        public string Tdoc { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
-        /// <value>Razons</value>        
+        /// <value>Ndoc</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string Razons { get; set; }
+        /// <datetime>22/10/2020.</datetime>
+        public string Ndoc { get; set; }
+
+        /// <summary>Propiedad de clase</summary>        
+        /// <value>Nvcto</value>        
+        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
+        /// <datetime>22/10/2020.</datetime>
+        public string Nvcto { get; set; }
+
+        /// <summary>Propiedad de clase</summary>        
+        /// <value>Fchemi</value>        
+        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
+        /// <datetime>22/10/2020.</datetime>
+        public DateTime Fchemi { get; set; }
+
+        /// <summary>Propiedad de clase</summary>        
+        /// <value>Fcvcto</value>        
+        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
+        /// <datetime>22/10/2020.</datetime>
+        public DateTime Fchvcto { get; set; }
+
+        /// <summary>Propiedad de clase</summary>        
+        /// <value>Importe</value>        
+        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
+        /// <datetime>22/10/2020.</datetime>
+        public decimal Importe { get; set; }
+
+        /// <summary>Propiedad de clase</summary>        
+        /// <value>Estado</value>        
+        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
+        /// <datetime>22/10/2020.</datetime>
+        public UInt32 Estado { get; set; }
+
+        /// <summary>Propiedad de clase</summary>        
+        /// <value>Dotada</value>        
+        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
+        /// <datetime>22/10/2020.</datetime>
+        public UInt32 Dotada { get; set; }
+
+        /// <summary>Propiedad de clase</summary>        
+        /// <value>Codvp</value>        
+        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
+        /// <datetime>22/10/2020.</datetime>
+        public string Codvp { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
         /// <value>Codcondp</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
+        /// <datetime>22/10/2020.</datetime>
         public string Codcondp { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
-        /// <value>Limitrg</value>        
+        /// <value>Codmondoc</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public decimal Limitrg { get; set; }
+        /// <datetime>22/10/2020.</datetime>
+        public string Codmondoc { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
-        /// <value>Prov</value>        
+        /// <value>Impmondoc</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string Prov { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>Criterio1_ZONA</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string Criterio1_ZONA { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>Criterio2_SUBZONA</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string Criterio2_SUBZONA { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>Lrcomp</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public UInt32 Lrcomp { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>Viasp</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string Viasp { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>ClasifContable</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string ClasifContable { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>Lsegcredito</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public decimal Lsegcredito { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>Fchcadsegcred</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public DateTime Fchcadsegcred { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>Tipoentidad</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string Tipoentidad { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>Sector</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string Sector { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>Fchaltaerp</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public DateTime Fchaltaerp { get; set; }
-
-        /// <summary>Propiedad de clase</summary>        
-        /// <value>Fchinitact</value>        
-        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public DateTime Fchinitact { get; set; }
+        /// <datetime>22/10/2020.</datetime>
+        public string Impmondoc { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
         /// <value>Ind1</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
+        /// <datetime>22/10/2020.</datetime>
         public string Ind1 { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
         /// <value>Ind2</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
+        /// <datetime>22/10/2020.</datetime>
         public string Ind2 { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
         /// <value>Ind3</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
+        /// <datetime>22/10/2020.</datetime>
         public string Ind3 { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
         /// <value>Ind4</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
+        /// <datetime>22/10/2020.</datetime>
         public string Ind4 { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
         /// <value>Ind5</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
+        /// <datetime>22/10/2020.</datetime>
         public string Ind5 { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
         /// <value>Ind6</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
+        /// <datetime>22/10/2020.</datetime>
         public string Ind6 { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
         /// <value>Ind7</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
+        /// <datetime>22/10/2020.</datetime>
         public string Ind7 { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
         /// <value>Ind8</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
+        /// <datetime>22/10/2020.</datetime>
         public string Ind8 { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
         /// <value>Ind9</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
+        /// <datetime>22/10/2020.</datetime>
         public string Ind9 { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
-        /// <value>TieneAval</value>        
+        /// <value>Campoid</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string TieneAval { get; set; }
+        /// <datetime>22/10/2020.</datetime>
+        public string Campoid { get; set; }
 
         /// <summary>Propiedad de clase</summary>        
-        /// <value>TipoAval</value>        
+        /// <value>Codejercicio</value>        
         /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
-        /// <datetime>15/10/2020.</datetime>
-        public string TipoAval { get; set; }
+        /// <datetime>22/10/2020.</datetime>
+        public string Codejercicio { get; set; }
+
+        /// <summary>Propiedad de clase</summary>        
+        /// <value>Numdocorigen</value>        
+        /// <author>Manuel Cepeda - INTERGRUPO\mcepeda.</author>         
+        /// <datetime>22/10/2020.</datetime>
+        public string Numdocorigen { get; set; }
     }
 }

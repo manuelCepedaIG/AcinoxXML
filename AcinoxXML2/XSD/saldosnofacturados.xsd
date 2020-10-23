@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="saldosnofacturados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" nillable="true" name="saldo">
+          <xs:complexType>
+            <xs:all>
+
+              <xs:element name="codcli" minOccurs="1" maxOccurs="1" nillable="false">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="64"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="importe" type="xs:decimal"  minOccurs="1" maxOccurs="1" nillable="false" />
+
+              <xs:element name="fchfacturacion" type="xs:date" minOccurs="0" maxOccurs="1" nillable="true" />
+
+              <xs:element name="plazopago" type="xs:integer"  minOccurs="0" maxOccurs="1" nillable="true" />
+
+              <xs:element name="numpedido" minOccurs="0" maxOccurs="1" nillable="true">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+               <xs:element name="numalbaran" minOccurs="0" maxOccurs="1" nillable="true">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+			  
+              <xs:element name="campoid" minOccurs="0" maxOccurs="1" nillable="true">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
