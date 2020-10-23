@@ -82,6 +82,9 @@ namespace AcinoxXML2
                 MySqlDataReader rdr6 = sql.getQueryData("direcciones", conn);
                 xml.generateEntity("direcciones", rdr6);
 
+                //MySqlDataReader rdr7 = sql.getQueryData("condicionesPago", conn);
+                xml.generateEntity("condicionesPago", null);
+
                 MySqlDataReader rdr7 = sql.getQueryData("partabiertas", conn);
                 xml.generateEntity("partabiertas", rdr7);
             }
@@ -107,6 +110,7 @@ namespace AcinoxXML2
             xsd.ValidationXSD("contactos");
             xsd.ValidationXSD("direcciones");
             xsd.ValidationXSD("clasifcriterios");
+            xsd.ValidationXSD("cndpago");
             xsd.ValidationXSD("partabiertas");
 
             Console.WriteLine("\nDone. Press any key to close.");
