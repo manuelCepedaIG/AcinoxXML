@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿/// ----------------------------------------------------------------------------
+/// <copyright file="Contacto.cs" company="Intergrupo S.A.">
+///     COPYRIGHT(C) 2020, Intergrupo S.A.
+/// </copyright>
+/// <author>Manuel Cepeda.  - mcepeda@intergrupo.com.</author>
+/// <email>mcepeda@intergrupo.com.</email>
+/// <date>15/10/2020.</date>
+/// <summary>Expone las propiedades de la clase.</summary>
+/// ----------------------------------------------------------------------------
 namespace AcinoxXML2.Models
 {
     /// <summary>Entidad Contacto</summary>        

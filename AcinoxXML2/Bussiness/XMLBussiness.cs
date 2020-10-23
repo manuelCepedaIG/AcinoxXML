@@ -60,6 +60,10 @@ namespace AcinoxXML2.Bussiness
                     List<CondicionPago> condicionesPagoList = MapingCondicionesPago(rdr);
                     GenerateXMLCondicionesPago(condicionesPagoList);
                     break;
+                case "partabiertas":
+                    List<PartidaAbierta> PartidaAbiertaList = mapingPartidasAbiertas(rdr);
+                    GenerateXMLPartidasAbiertas(PartidaAbiertaList);
+                    break;
                 default:
                     break;
             }
@@ -169,19 +173,19 @@ namespace AcinoxXML2.Bussiness
                                                     ? new DateTime(1, 1, 1)
                                                     : new DateTime(Convert.ToInt32(rdr[12].ToString().Substring(0, 4)),
                                                                    Convert.ToInt32(rdr[12].ToString().Substring(4, 2)),
-                                                                   Convert.ToInt32(rdr[12].ToString().Substring(4, 2))));
+                                                                   Convert.ToInt32(rdr[12].ToString().Substring(6, 2))));
                 cliente.Tipoentidad = rdr[13].ToString();
                 cliente.Sector = rdr[14].ToString();
                 cliente.Fchaltaerp = (rdr[15] == DBNull.Value || string.IsNullOrEmpty(rdr[15].ToString()) 
                                                     ? new DateTime(1, 1, 1) 
                                                     : new DateTime(Convert.ToInt32(rdr[15].ToString().Substring(0,4)), 
                                                                    Convert.ToInt32(rdr[15].ToString().Substring(4,2)),
-                                                                   Convert.ToInt32(rdr[15].ToString().Substring(4,2))) );
+                                                                   Convert.ToInt32(rdr[15].ToString().Substring(6,2))) );
                 cliente.Fchinitact = (rdr[16] == DBNull.Value || string.IsNullOrEmpty(rdr[16].ToString())
                                                     ? new DateTime(1, 1, 1)
                                                     : new DateTime(Convert.ToInt32(rdr[16].ToString().Substring(0, 4)),
                                                                    Convert.ToInt32(rdr[16].ToString().Substring(4, 2)),
-                                                                   Convert.ToInt32(rdr[16].ToString().Substring(4, 2))));
+                                                                   Convert.ToInt32(rdr[16].ToString().Substring(6, 2))));
                 cliente.Ind1 = rdr[17].ToString();
                 cliente.Ind2 = rdr[18].ToString();
                 cliente.Ind3 = rdr[19].ToString();
@@ -363,6 +367,51 @@ namespace AcinoxXML2.Bussiness
             return clasificacionCriterio;
         }
 
+        private List<PartidaAbierta> mapingPartidasAbiertas(MySqlDataReader rdr)
+        {
+            List<PartidaAbierta> partidaAbiertaList = new List<PartidaAbierta>();
+            while (rdr.Read())
+            {
+                PartidaAbierta partidaAbierta = new PartidaAbierta();
+                partidaAbierta.Codcli = rdr[0].ToString();
+                partidaAbierta.Tdoc = rdr[1].ToString();
+                partidaAbierta.Ndoc = rdr[2].ToString();
+                partidaAbierta.Nvcto = rdr[3].ToString();
+                partidaAbierta.Fchemi = (rdr[4] == DBNull.Value || string.IsNullOrEmpty(rdr[4].ToString())
+                                                    ? new DateTime(1, 1, 1)
+                                                    : new DateTime(Convert.ToInt32(rdr[4].ToString().Substring(0, 4)),
+                                                                   Convert.ToInt32(rdr[4].ToString().Substring(4, 2)),
+                                                                   Convert.ToInt32(rdr[4].ToString().Substring(6, 2))));
+                partidaAbierta.Fchvcto = (rdr[5] == DBNull.Value || string.IsNullOrEmpty(rdr[5].ToString())
+                                                    ? new DateTime(1, 1, 1)
+                                                    : new DateTime(Convert.ToInt32(rdr[5].ToString().Substring(0, 4)),
+                                                                   Convert.ToInt32(rdr[5].ToString().Substring(4, 2)),
+                                                                   Convert.ToInt32(rdr[5].ToString().Substring(6, 2))));
+                partidaAbierta.Importe = string.IsNullOrEmpty(rdr[6].ToString()) ? 0 : Convert.ToDecimal(rdr[6].ToString());
+                partidaAbierta.Estado = string.IsNullOrEmpty(rdr[7].ToString()) ? 0 : Convert.ToUInt32(rdr[7].ToString());
+                partidaAbierta.Dotada = string.IsNullOrEmpty(rdr[8].ToString()) ? 0 : Convert.ToUInt32(rdr[8].ToString());
+                partidaAbierta.Codvp = rdr[9].ToString();
+                partidaAbierta.Codcondp = rdr[10].ToString();
+                partidaAbierta.Codmondoc = rdr[11].ToString();
+                partidaAbierta.Impmondoc = rdr[12].ToString();
+                partidaAbierta.Ind1 = rdr[13].ToString();
+                partidaAbierta.Ind2 = rdr[14].ToString();
+                partidaAbierta.Ind3 = rdr[15].ToString();
+                partidaAbierta.Ind4 = rdr[16].ToString();
+                partidaAbierta.Ind5 = rdr[17].ToString();
+                partidaAbierta.Ind6 = rdr[18].ToString();
+                partidaAbierta.Ind7 = rdr[19].ToString();
+                partidaAbierta.Ind8 = rdr[20].ToString();
+                partidaAbierta.Ind9 = rdr[21].ToString();
+                partidaAbierta.Campoid = rdr[22].ToString();
+                partidaAbierta.Codejercicio = rdr[23].ToString();
+                partidaAbierta.Numdocorigen = rdr[24].ToString();
+                partidaAbiertaList.Add(partidaAbierta);
+            }
+            rdr.Close();
+            return partidaAbiertaList;
+        }
+
         #endregion
 
         #region GenerateXML
@@ -462,7 +511,7 @@ namespace AcinoxXML2.Bussiness
                 clienteNode.AppendChild(codcondpNode);
 
                 XmlNode limitrgNode = doc.CreateElement("limitrg");
-                limitrgNode.InnerText = Cliente.Limitrg.ToString();
+                limitrgNode.InnerText = Cliente.Limitrg.ToString().Replace(",", "."); ;
                 clienteNode.AppendChild(limitrgNode);
 
                 XmlNode provNode = doc.CreateElement("prov");
@@ -514,7 +563,7 @@ namespace AcinoxXML2.Bussiness
                 viaspNode.AppendChild(codvp);
 
                 XmlNode lsegcreditoNode = doc.CreateElement("lsegcredito");
-                lsegcreditoNode.InnerText = Cliente.Lsegcredito.ToString();
+                lsegcreditoNode.InnerText = Cliente.Lsegcredito.ToString().Replace(",", "."); ;
                 clienteNode.AppendChild(lsegcreditoNode);
 
                 XmlNode fchcadsegcredNode = doc.CreateElement("fchcadsegcred");
@@ -755,6 +804,118 @@ namespace AcinoxXML2.Bussiness
                 socNode.AppendChild(descNode);
             }
             SavingXMLFile(doc, "clasifcriterios");
+        }
+
+        private void GenerateXMLPartidasAbiertas(List<PartidaAbierta> partidaAbiertaList)
+        {
+            XmlElement partidaAbiertaNode;
+            XmlDocument doc = CreateXMLHeaders("partabiertas", out partidaAbiertaNode);
+            foreach (PartidaAbierta partidaAbierta in partidaAbiertaList)
+            {
+                XmlNode partNode = doc.CreateElement("part");
+                partidaAbiertaNode.AppendChild(partNode);
+
+                XmlNode codcliNode = doc.CreateElement("codcli");
+                codcliNode.InnerText = partidaAbierta.Codcli;
+                partNode.AppendChild(codcliNode);
+
+                XmlNode tdocNode = doc.CreateElement("tdoc");
+                tdocNode.InnerText = partidaAbierta.Tdoc;
+                partNode.AppendChild(tdocNode);
+
+                XmlNode ndocNode = doc.CreateElement("ndoc");
+                ndocNode.InnerText = partidaAbierta.Ndoc;
+                partNode.AppendChild(ndocNode);
+
+                XmlNode nvctoNode = doc.CreateElement("nvcto");
+                nvctoNode.InnerText = partidaAbierta.Nvcto;
+                partNode.AppendChild(nvctoNode);
+
+                XmlNode fchemiNode = doc.CreateElement("fchemi");
+                fchemiNode.InnerText = partidaAbierta.Fchemi.ToString("yyyy-MM-dd");
+                partNode.AppendChild(fchemiNode);
+
+                XmlNode fchvctoNode = doc.CreateElement("fchvcto");
+                fchvctoNode.InnerText = partidaAbierta.Fchvcto.ToString("yyyy-MM-dd");
+                partNode.AppendChild(fchvctoNode);
+
+                XmlNode importeNode = doc.CreateElement("importe");
+                importeNode.InnerText = partidaAbierta.Importe.ToString().Replace(",",".");
+                partNode.AppendChild(importeNode);
+
+                XmlNode estadoNode = doc.CreateElement("estado");
+                estadoNode.InnerText = partidaAbierta.Estado.ToString();
+                partNode.AppendChild(estadoNode);
+
+                XmlNode dotadaNode = doc.CreateElement("dotada");
+                dotadaNode.InnerText = partidaAbierta.Dotada.ToString();
+                partNode.AppendChild(dotadaNode);
+
+                XmlNode codvpNode = doc.CreateElement("codvp");
+                codvpNode.InnerText = partidaAbierta.Codvp;
+                partNode.AppendChild(codvpNode);
+
+                XmlNode codcondpNode = doc.CreateElement("codcondp");
+                codcondpNode.InnerText = partidaAbierta.Codcondp;
+                partNode.AppendChild(codcondpNode);
+
+                XmlNode codmondocNode = doc.CreateElement("codmondoc");
+                codmondocNode.InnerText = partidaAbierta.Codmondoc;
+                partNode.AppendChild(codmondocNode);
+
+                XmlNode impmondocNode = doc.CreateElement("impmondoc");
+                impmondocNode.InnerText = partidaAbierta.Impmondoc;
+                partNode.AppendChild(impmondocNode);
+
+                XmlNode ind1Node = doc.CreateElement("ind1");
+                ind1Node.InnerText = partidaAbierta.Ind1;
+                partNode.AppendChild(ind1Node);
+
+                XmlNode ind2Node = doc.CreateElement("ind2");
+                ind2Node.InnerText = partidaAbierta.Ind2;
+                partNode.AppendChild(ind2Node);
+
+                XmlNode ind3Node = doc.CreateElement("ind3");
+                ind3Node.InnerText = partidaAbierta.Ind3;
+                partNode.AppendChild(ind3Node);
+
+                XmlNode ind4Node = doc.CreateElement("ind4");
+                ind4Node.InnerText = partidaAbierta.Ind4;
+                partNode.AppendChild(ind4Node);
+
+                XmlNode ind5Node = doc.CreateElement("ind5");
+                ind5Node.InnerText = partidaAbierta.Ind5;
+                partNode.AppendChild(ind5Node);
+
+                XmlNode ind6Node = doc.CreateElement("ind6");
+                ind6Node.InnerText = partidaAbierta.Ind6;
+                partNode.AppendChild(ind6Node);
+
+                XmlNode ind7Node = doc.CreateElement("ind7");
+                ind7Node.InnerText = partidaAbierta.Ind7;
+                partNode.AppendChild(ind7Node);
+
+                XmlNode ind8Node = doc.CreateElement("ind8");
+                ind8Node.InnerText = partidaAbierta.Ind8;
+                partNode.AppendChild(ind8Node);
+
+                XmlNode ind9Node = doc.CreateElement("ind9");
+                ind9Node.InnerText = partidaAbierta.Ind9;
+                partNode.AppendChild(ind9Node);
+
+                XmlNode campoidNode = doc.CreateElement("campoid");
+                campoidNode.InnerText = partidaAbierta.Campoid;
+                partNode.AppendChild(campoidNode);
+
+                XmlNode codejercicioNode = doc.CreateElement("codejercicio");
+                codejercicioNode.InnerText = partidaAbierta.Codejercicio;
+                partNode.AppendChild(codejercicioNode);
+
+                XmlNode numdocorigenNode = doc.CreateElement("numdocorigen");
+                numdocorigenNode.InnerText = partidaAbierta.Numdocorigen;
+                partNode.AppendChild(numdocorigenNode);
+            }
+            SavingXMLFile(doc, "partabiertas");
         }
 
         private XmlDocument CreateXMLHeaders(string xmlFileName, out XmlElement Node)
