@@ -110,7 +110,7 @@ namespace AcinoxXML2
             xsd.ValidationXSD("contactos");
             xsd.ValidationXSD("direcciones");
             xsd.ValidationXSD("clasifcriterios");
-            //xsd.ValidationXSD("cndpago");
+            xsd.ValidationXSD("cndpago");
             xsd.ValidationXSD("partabiertas");
 
             Console.WriteLine("\nDone. Press any key to close.");
