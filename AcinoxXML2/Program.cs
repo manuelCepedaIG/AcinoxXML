@@ -87,6 +87,9 @@ namespace AcinoxXML2
 
                 MySqlDataReader rdr8 = sql.getQueryData("partabiertas", conn);
                 xml.generateEntity("partabiertas", rdr8);
+
+                MySqlDataReader rdr9 = sql.getQueryData("ventas", conn);
+                xml.generateEntity("ventas", rdr9);
             }
             catch (Exception ex)
             {
@@ -112,6 +115,7 @@ namespace AcinoxXML2
             xsd.ValidationXSD("clasifcriterios");
             xsd.ValidationXSD("cndpago");
             xsd.ValidationXSD("partabiertas");
+            xsd.ValidationXSD("ventas");
 
             Console.WriteLine("\nDone. Press any key to close.");
             Console.ReadLine();

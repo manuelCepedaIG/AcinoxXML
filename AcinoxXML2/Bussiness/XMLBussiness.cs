@@ -64,6 +64,10 @@ namespace AcinoxXML2.Bussiness
                     List<PartidaAbierta> PartidaAbiertaList = mapingPartidasAbiertas(rdr);
                     GenerateXMLPartidasAbiertas(PartidaAbiertaList);
                     break;
+                case "ventas":
+                    List<Venta> VentaList = mapingVenta(rdr);
+                    GenerateXMLVentas(VentaList);
+                    break;
                 default:
                     break;
             }
@@ -412,6 +416,22 @@ namespace AcinoxXML2.Bussiness
             return partidaAbiertaList;
         }
 
+        private List<Venta> mapingVenta(MySqlDataReader rdr)
+        {
+            List<Venta> ventaList = new List<Venta>();
+            while (rdr.Read())
+            {
+                Venta venta = new Venta();
+                venta.CodCli = rdr[0].ToString();
+                venta.Anio = Convert.ToInt32(rdr[1].ToString());
+                venta.Mes = Convert.ToUInt32(rdr[2].ToString());
+                venta.Importe = string.IsNullOrEmpty(rdr[3].ToString()) ? 0 : Convert.ToDecimal(rdr[3].ToString());
+                ventaList.Add(venta);
+            }
+            rdr.Close();
+            return ventaList;
+        }
+
         #endregion
 
         #region GenerateXML
@@ -647,6 +667,23 @@ namespace AcinoxXML2.Bussiness
                 agregarNodo(partNode, doc.CreateElement("numdocorigen"), partidaAbierta.Numdocorigen);
                             }
             SavingXMLFile(doc, "partabiertas");
+        }
+
+        private void GenerateXMLVentas(List<Venta> ventaList)
+        {
+            XmlElement ventasNode;
+            XmlDocument doc = CreateXMLHeaders("ventas", out ventasNode);
+            foreach (Venta venta in ventaList)
+            {
+                XmlNode ventaNode = doc.CreateElement("venta");
+                ventasNode.AppendChild(ventaNode);
+
+                agregarNodo(ventaNode, doc.CreateElement("codcli"), venta.CodCli);
+                agregarNodo(ventaNode, doc.CreateElement("anio"), venta.Anio.ToString());
+                agregarNodo(ventaNode, doc.CreateElement("mes"), venta.Mes.ToString());
+                agregarNodo(ventaNode, doc.CreateElement("importe"), venta.Importe.ToString().Replace(",", "."));
+            }
+            SavingXMLFile(doc, "ventas");
         }
 
         private XmlDocument CreateXMLHeaders(string xmlFileName, out XmlElement Node, string xsdFileName = "")
