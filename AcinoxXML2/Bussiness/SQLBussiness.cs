@@ -30,11 +30,17 @@ namespace AcinoxXML2.Bussiness
             return conn;
         }
 
-        public MySqlDataReader getQueryData(string typeOfQuery, MySqlConnection conn)
+        public MySqlDataReader getQueryData(string typeOfQuery, MySqlConnection conn, string codeEntity)
         {
             string sql = string.Empty;
             FileInfo file = new FileInfo(@"SQL\"+ typeOfQuery + ".sql");
             sql = file.OpenText().ReadToEnd();
+
+            if (!string.IsNullOrEmpty(codeEntity) && !string.IsNullOrEmpty(sql))
+            {
+                sql = sql.Replace("{0}", codeEntity);
+            }
+
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
             return rdr;

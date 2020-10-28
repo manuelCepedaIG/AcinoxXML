@@ -13,4 +13,4 @@
     '' AS ind2,
     '' AS ind3
 FROM TERCEROS AS Cl
-    INNER JOIN CONTRATOS AS Con ON Con.ID_TERC = Cl.Codigo AND Con.ID_EMP IN('01','02');
+    INNER JOIN CONTRATOS AS Con ON Con.ID_TERC = Cl.Codigo AND Con.ID_EMP = '{0}';

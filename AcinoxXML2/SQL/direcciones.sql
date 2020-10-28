@@ -31,7 +31,7 @@ FROM
     inner join CIUDADES AS T2 on T1.CIUDAD_CORRESP = T2.ID_CIUDAD 
     inner join DEPARTAMENTOS AS T3 on T1.DPTO_CORRESP = T3.ID_DPTO 
     inner join PAISES AS T4 on T1.PAIS_CORRESP = T4.ID_PAIS 
-    inner join CONTRATOS AS T5 ON T5.ID_TERC = T1.Codigo AND T5.ID_EMP IN('01','02') 
+    inner join CONTRATOS AS T5 ON T5.ID_TERC = T1.Codigo AND T5.ID_EMP = '{0}' 
 WHERE 
     (T1.DIRECCION_1 != '' or  
     T1.DIRECCION_2 != '' or  

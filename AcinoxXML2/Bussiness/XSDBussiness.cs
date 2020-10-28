@@ -24,14 +24,16 @@ namespace AcinoxXML2.Bussiness
 
     public class XSDBussiness
     {
-        public void ValidationXSD(string fileName)
+        public void ValidationXSD(string fileName, string folder)
         {
             Console.WriteLine();
-            Console.WriteLine("-> Validating: {0}", fileName);
+            string mensaje = "-> Validating: {0}" + (string.IsNullOrEmpty(folder)? string.Empty : ", Entity: {1}");
+            Console.WriteLine(mensaje, fileName, folder);
 
+            folder = string.IsNullOrEmpty(folder)? folder : folder + @"\";
             string directory = Directory.GetCurrentDirectory();
             string xsdFile = directory + @"\XSD\" + fileName + ".xsd";
-            string xmlFile = directory + @"\XML\" + fileName + ".xml";
+            string xmlFile = directory + @"\XML\" + folder + fileName + ".xml";
 
             bool isvalid = true;
             StringBuilder sb = new StringBuilder();

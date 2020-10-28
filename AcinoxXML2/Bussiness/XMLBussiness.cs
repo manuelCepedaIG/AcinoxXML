@@ -28,7 +28,13 @@ namespace AcinoxXML2.Bussiness
 
     public class XMLBussiness
     {
-        public  void generateEntity(string typeOfQuery, MySqlDataReader rdr)
+        public List<Sociedad> generateEntitySociedad(MySqlDataReader rdr)
+        {
+            List<Sociedad> sociedadList = mapingSociedades(rdr);
+            GenerateXMLSociedades(sociedadList);
+            return sociedadList;
+        }
+        public  void generateEntity(string typeOfQuery, MySqlDataReader rdr, string codeEntity)
         {
             switch (typeOfQuery)
             {
@@ -38,35 +44,35 @@ namespace AcinoxXML2.Bussiness
                     break;
                 case "clientes":
                     List<Cliente> clientesList = mapingClientes(rdr);
-                    GenerateXMLClientes(clientesList);
+                    GenerateXMLClientes(clientesList, codeEntity);
                     break;
                 case "formasPago":
                     List<FormaPago> formaPagoList = mapingFormasPagos();
-                    GenerateXMLFormasPagos(formaPagoList);
+                    GenerateXMLFormasPagos(formaPagoList, codeEntity);
                     break;
                 case "contactos":
                     List<Contacto> contactoList = mapingContactos(rdr);
-                    GenerateXMLContactos(contactoList);
+                    GenerateXMLContactos(contactoList, codeEntity);
                     break;
                 case "clasifcriterios":
                     List<ClasificacionCriterio> creteriosList = mapingCriterios(rdr);
-                    GenerateXMLCriteriosClasificacion(creteriosList);
+                    GenerateXMLCriteriosClasificacion(creteriosList, codeEntity);
                     break;
                 case "direcciones":
                     List<Direccion> direccionesList = mapingDirecciones(rdr);
-                    GenerateXMLDirecciones(direccionesList);
+                    GenerateXMLDirecciones(direccionesList, codeEntity);
                     break;
                 case "condicionesPago":
                     List<CondicionPago> condicionesPagoList = MapingCondicionesPago(rdr);
-                    GenerateXMLCondicionesPago(condicionesPagoList);
+                    GenerateXMLCondicionesPago(condicionesPagoList, codeEntity);
                     break;
                 case "partabiertas":
                     List<PartidaAbierta> PartidaAbiertaList = mapingPartidasAbiertas(rdr);
-                    GenerateXMLPartidasAbiertas(PartidaAbiertaList);
+                    GenerateXMLPartidasAbiertas(PartidaAbiertaList, codeEntity);
                     break;
                 case "ventas":
                     List<Venta> VentaList = mapingVenta(rdr);
-                    GenerateXMLVentas(VentaList);
+                    GenerateXMLVentas(VentaList, codeEntity);
                     break;
                 default:
                     break;
@@ -435,7 +441,7 @@ namespace AcinoxXML2.Bussiness
         #endregion
 
         #region GenerateXML
-        private void GenerateXMLCondicionesPago(List<CondicionPago> condicionesPagoList)
+        private void GenerateXMLCondicionesPago(List<CondicionPago> condicionesPagoList, string codeEntity)
         {
             XmlElement nodoPrincipal;
             XmlDocument doc = CreateXMLHeaders("condspago", out nodoPrincipal, "cndpago");
@@ -464,7 +470,7 @@ namespace AcinoxXML2.Bussiness
                 nodoPrincipal.AppendChild(condNodo);
             }
 
-            SavingXMLFile(doc, "cndpago");
+            SavingXMLFile(doc, "cndpago", codeEntity);
         }
 
         private void GenerateXMLSociedades(List<Sociedad> sociedadList)
@@ -481,10 +487,10 @@ namespace AcinoxXML2.Bussiness
                 agregarNodo(socNode, doc.CreateElement("nif"), sociedad.Cod);
                 agregarNodo(socNode, doc.CreateElement("codmoneda"), sociedad.Cod);
             }
-            SavingXMLFile(doc, "sociedades");
+            SavingXMLFile(doc, "sociedades", string.Empty);
         }
 
-        private void GenerateXMLClientes(List<Cliente> clienteList)
+        private void GenerateXMLClientes(List<Cliente> clienteList, string codeEntity)
         {
             XmlElement clientesNode;
             XmlDocument doc = CreateXMLHeaders("clientes", out clientesNode);
@@ -540,10 +546,10 @@ namespace AcinoxXML2.Bussiness
                 agregarNodo(clienteNode, doc.CreateElement("ind9"), Cliente.Ind9);
 
             }
-            SavingXMLFile(doc, "clientes");
+            SavingXMLFile(doc, "clientes", codeEntity);
         }
 
-        private void GenerateXMLFormasPagos(List<FormaPago> formaPagoList)
+        private void GenerateXMLFormasPagos(List<FormaPago> formaPagoList, string codeEntity)
         {
             XmlElement viaspagoNode;
             XmlDocument doc = CreateXMLHeaders("viaspago", out viaspagoNode);
@@ -559,10 +565,10 @@ namespace AcinoxXML2.Bussiness
                 agregarNodo(viaNode, doc.CreateElement("ind2"), formaPago.Ind2);
                 agregarNodo(viaNode, doc.CreateElement("numdias"), formaPago.Numdias);
             }
-            SavingXMLFile(doc, "viaspago");
+            SavingXMLFile(doc, "viaspago", codeEntity);
         }
 
-        private void GenerateXMLContactos(List<Contacto> contactoList)
+        private void GenerateXMLContactos(List<Contacto> contactoList, string codeEntity)
         {
             XmlElement contactosNode;
             XmlDocument doc = CreateXMLHeaders("contactos", out contactosNode);
@@ -584,10 +590,10 @@ namespace AcinoxXML2.Bussiness
                 agregarNodo(contactoNode, doc.CreateElement("ind2"), contacto.Ind2);
                 agregarNodo(contactoNode, doc.CreateElement("ind3"), contacto.Ind3);
             }
-            SavingXMLFile(doc, "contactos");
+            SavingXMLFile(doc, "contactos", codeEntity);
         }
 
-        private void GenerateXMLDirecciones(List<Direccion> direccionesList)
+        private void GenerateXMLDirecciones(List<Direccion> direccionesList, string codeEntity)
         {
             try
             {
@@ -606,7 +612,7 @@ namespace AcinoxXML2.Bussiness
                     agregarNodo(direccionNode, doc.CreateElement("cp"), direccion.CodigoPostal);
                     agregarNodo(direccionNode, doc.CreateElement("pais"), direccion.Pais);
                 }
-                SavingXMLFile(doc, "direcciones");
+                SavingXMLFile(doc, "direcciones", codeEntity);
             }
             catch (Exception ex)
             {
@@ -615,7 +621,7 @@ namespace AcinoxXML2.Bussiness
             }
         }
 
-        private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterio> creteriosList)
+        private void GenerateXMLCriteriosClasificacion(List<ClasificacionCriterio> creteriosList, string codeEntity)
         {
             XmlElement criteriosNode;
             XmlDocument doc = CreateXMLHeaders("clasifcriterios", out criteriosNode);
@@ -628,10 +634,10 @@ namespace AcinoxXML2.Bussiness
                 agregarNodo(critelemNode, doc.CreateElement("cod"), criterio.Codigo);
                 agregarNodo(critelemNode, doc.CreateElement("desc"), criterio.Descripcion);
             }
-            SavingXMLFile(doc, "clasifcriterios");
+            SavingXMLFile(doc, "clasifcriterios", codeEntity);
         }
 
-        private void GenerateXMLPartidasAbiertas(List<PartidaAbierta> partidaAbiertaList)
+        private void GenerateXMLPartidasAbiertas(List<PartidaAbierta> partidaAbiertaList, string codeEntity)
         {
             XmlElement partidaAbiertaNode;
             XmlDocument doc = CreateXMLHeaders("partabiertas", out partidaAbiertaNode);
@@ -666,10 +672,10 @@ namespace AcinoxXML2.Bussiness
                 agregarNodo(partNode, doc.CreateElement("codejercicio"), partidaAbierta.Codejercicio);
                 agregarNodo(partNode, doc.CreateElement("numdocorigen"), partidaAbierta.Numdocorigen);
                             }
-            SavingXMLFile(doc, "partabiertas");
+            SavingXMLFile(doc, "partabiertas", codeEntity);
         }
 
-        private void GenerateXMLVentas(List<Venta> ventaList)
+        private void GenerateXMLVentas(List<Venta> ventaList, string codeEntity)
         {
             XmlElement ventasNode;
             XmlDocument doc = CreateXMLHeaders("ventas", out ventasNode);
@@ -683,7 +689,7 @@ namespace AcinoxXML2.Bussiness
                 agregarNodo(ventaNode, doc.CreateElement("mes"), venta.Mes.ToString());
                 agregarNodo(ventaNode, doc.CreateElement("importe"), venta.Importe.ToString().Replace(",", "."));
             }
-            SavingXMLFile(doc, "ventas");
+            SavingXMLFile(doc, "ventas", codeEntity);
         }
 
         private XmlDocument CreateXMLHeaders(string xmlFileName, out XmlElement Node, string xsdFileName = "")
@@ -709,12 +715,13 @@ namespace AcinoxXML2.Bussiness
             return doc;
         }
 
-        private void SavingXMLFile(XmlDocument xmlDoc, string xmlFileName)
+        private void SavingXMLFile(XmlDocument xmlDoc, string xmlFileName, string codeEntity)
         {
             string directory = Directory.GetCurrentDirectory();
-            Directory.CreateDirectory(directory + @"\XML");
+            string folder = (string.IsNullOrEmpty(codeEntity))? string.Empty: @"\" + codeEntity;
+            Directory.CreateDirectory(directory + @"\XML" + folder);
             XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
-            XmlWriter writer = XmlWriter.Create(directory + @"\XML\"+ xmlFileName + ".xml", settings);
+            XmlWriter writer = XmlWriter.Create(directory + @"\XML" + folder + @"\" + xmlFileName + ".xml", settings);
             xmlDoc.Save(writer);
             writer.Close();
         }

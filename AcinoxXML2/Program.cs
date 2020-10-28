@@ -53,7 +53,10 @@ namespace AcinoxXML2
             SQLBussiness sql = new SQLBussiness();
             MySqlConnection conn = sql.connect();
             generateFiles(sql, conn);
-            validateXMLFiles();
+            validateXMLFiles(string.Empty);
+
+            Console.WriteLine("\nDone. Press any key to close.");
+            Console.ReadLine();
         }
 
         public static void generateFiles(SQLBussiness sql, MySqlConnection conn)
@@ -63,33 +66,14 @@ namespace AcinoxXML2
             {
                 Console.WriteLine("Connecting to MySQL and generating XML files...");
                 conn.Open();
-
-                MySqlDataReader rdr = sql.getQueryData("sociedades", conn);
-                xml.generateEntity("sociedades", rdr);
-
-                MySqlDataReader rdr5 = sql.getQueryData("clasifcriterios", conn);
-                xml.generateEntity("clasifcriterios", rdr5);
-
-                MySqlDataReader rdr2 = sql.getQueryData("clientes", conn);
-                xml.generateEntity("clientes", rdr2);
-
-                //MySqlDataReader rdr3 = sql.getQueryData("formasPago", conn);
-                xml.generateEntity("formasPago", null);
-
-                MySqlDataReader rdr4 = sql.getQueryData("contactos", conn);
-                xml.generateEntity("contactos", rdr4);
-
-                MySqlDataReader rdr6 = sql.getQueryData("direcciones", conn);
-                xml.generateEntity("direcciones", rdr6);
-
-                //MySqlDataReader rdr7 = sql.getQueryData("condicionesPago", conn);
-                xml.generateEntity("condicionesPago", null);
-
-                MySqlDataReader rdr8 = sql.getQueryData("partabiertas", conn);
-                xml.generateEntity("partabiertas", rdr8);
-
-                MySqlDataReader rdr9 = sql.getQueryData("ventas", conn);
-                xml.generateEntity("ventas", rdr9);
+                MySqlDataReader rdr = sql.getQueryData("sociedades", conn, string.Empty);
+                List<Sociedad> listSociedades = xml.generateEntitySociedad(rdr);
+                foreach (Sociedad item in listSociedades)
+                {
+                    generateFilesBySociety(item, conn, xml, sql);
+                    Console.WriteLine("\nXML files generated entity " + item.Cod);
+                    validateXMLFiles(item.Cod);
+                }
             }
             catch (Exception ex)
             {
@@ -97,28 +81,58 @@ namespace AcinoxXML2
                 Console.ReadLine();
             }
 
-            Console.WriteLine("XML files generated");
             //Console.ReadLine();
             conn.Close();
         }
 
-        public static void validateXMLFiles()
+        private static void generateFilesBySociety(Sociedad sociedad, MySqlConnection conn, XMLBussiness xml, SQLBussiness sql)
+        {
+
+            MySqlDataReader rdr2 = sql.getQueryData("clientes", conn,sociedad.Cod);
+            xml.generateEntity("clientes", rdr2, sociedad.Cod);
+
+            //MySqlDataReader rdr3 = sql.getQueryData("formasPago", conn);
+            xml.generateEntity("formasPago", null, sociedad.Cod);
+
+            MySqlDataReader rdr4 = sql.getQueryData("contactos", conn, sociedad.Cod);
+            xml.generateEntity("contactos", rdr4, sociedad.Cod);
+
+            MySqlDataReader rdr5 = sql.getQueryData("clasifcriterios", conn, sociedad.Cod);
+            xml.generateEntity("clasifcriterios", rdr5, sociedad.Cod);
+
+            MySqlDataReader rdr6 = sql.getQueryData("direcciones", conn, sociedad.Cod);
+            xml.generateEntity("direcciones", rdr6, sociedad.Cod);
+
+            //MySqlDataReader rdr7 = sql.getQueryData("condicionesPago", conn);
+            xml.generateEntity("condicionesPago", null, sociedad.Cod);
+
+            MySqlDataReader rdr8 = sql.getQueryData("partabiertas", conn, sociedad.Cod);
+            xml.generateEntity("partabiertas", rdr8, sociedad.Cod);
+
+            MySqlDataReader rdr9 = sql.getQueryData("ventas", conn, sociedad.Cod);
+            xml.generateEntity("ventas", rdr9, sociedad.Cod);
+        }
+
+        public static void validateXMLFiles(string codeEntity)
         {
             //Thread.Sleep(5000);
-
             XSDBussiness xsd = new XSDBussiness();
-            xsd.ValidationXSD("sociedades");
-            xsd.ValidationXSD("clientes");
-            xsd.ValidationXSD("viaspago");
-            xsd.ValidationXSD("contactos");
-            xsd.ValidationXSD("direcciones");
-            xsd.ValidationXSD("clasifcriterios");
-            xsd.ValidationXSD("cndpago");
-            xsd.ValidationXSD("partabiertas");
-            xsd.ValidationXSD("ventas");
+            if (string.IsNullOrEmpty(codeEntity))
+            {
+                xsd.ValidationXSD("sociedades",string.Empty);
+            }
+            else
+            {
+                xsd.ValidationXSD("clientes", codeEntity);
+                xsd.ValidationXSD("viaspago", codeEntity);
+                xsd.ValidationXSD("contactos", codeEntity);
+                xsd.ValidationXSD("direcciones", codeEntity);
+                xsd.ValidationXSD("clasifcriterios", codeEntity);
+                xsd.ValidationXSD("cndpago", codeEntity);
+                xsd.ValidationXSD("partabiertas", codeEntity);
+                xsd.ValidationXSD("ventas", codeEntity);
+            }
 
-            Console.WriteLine("\nDone. Press any key to close.");
-            Console.ReadLine();
         }
 
 
